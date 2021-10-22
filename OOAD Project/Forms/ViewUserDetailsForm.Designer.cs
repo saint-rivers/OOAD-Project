@@ -1,7 +1,7 @@
 ﻿
 namespace OOAD_Project
 {
-    partial class RegistrationForm
+    partial class ViewUserDetailsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,75 +30,74 @@ namespace OOAD_Project
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label idLabel;
             System.Windows.Forms.Label firstnameLabel;
             System.Windows.Forms.Label lastnameLabel;
             System.Windows.Forms.Label emailLabel;
             System.Windows.Forms.Label userSecretLabel;
-            System.Windows.Forms.Label label1;
             this.projectManagementDataSet = new OOAD_Project.ProjectManagementDataSet();
             this.projectUsersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.projectUsersTableAdapter = new OOAD_Project.ProjectManagementDataSetTableAdapters.ProjectUsersTableAdapter();
             this.tableAdapterManager = new OOAD_Project.ProjectManagementDataSetTableAdapters.TableAdapterManager();
+            this.idTextBox = new System.Windows.Forms.TextBox();
             this.firstnameTextBox = new System.Windows.Forms.TextBox();
             this.lastnameTextBox = new System.Windows.Forms.TextBox();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.userSecretTextBox = new System.Windows.Forms.TextBox();
-            this.secretConfirmationTextBox = new System.Windows.Forms.TextBox();
-            this.registerBtn = new System.Windows.Forms.Button();
-            this.cancelBtn = new System.Windows.Forms.Button();
+            this.backBtn = new System.Windows.Forms.Button();
+            idLabel = new System.Windows.Forms.Label();
             firstnameLabel = new System.Windows.Forms.Label();
             lastnameLabel = new System.Windows.Forms.Label();
             emailLabel = new System.Windows.Forms.Label();
             userSecretLabel = new System.Windows.Forms.Label();
-            label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectUsersBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
+            // idLabel
+            // 
+            idLabel.AutoSize = true;
+            idLabel.Location = new System.Drawing.Point(55, 79);
+            idLabel.Name = "idLabel";
+            idLabel.Size = new System.Drawing.Size(19, 13);
+            idLabel.TabIndex = 1;
+            idLabel.Text = "Id:";
+            // 
             // firstnameLabel
             // 
             firstnameLabel.AutoSize = true;
-            firstnameLabel.Location = new System.Drawing.Point(45, 29);
+            firstnameLabel.Location = new System.Drawing.Point(402, 79);
             firstnameLabel.Name = "firstnameLabel";
             firstnameLabel.Size = new System.Drawing.Size(55, 13);
-            firstnameLabel.TabIndex = 1;
+            firstnameLabel.TabIndex = 3;
             firstnameLabel.Text = "Firstname:";
             // 
             // lastnameLabel
             // 
             lastnameLabel.AutoSize = true;
-            lastnameLabel.Location = new System.Drawing.Point(44, 55);
+            lastnameLabel.Location = new System.Drawing.Point(402, 103);
             lastnameLabel.Name = "lastnameLabel";
             lastnameLabel.Size = new System.Drawing.Size(56, 13);
-            lastnameLabel.TabIndex = 3;
+            lastnameLabel.TabIndex = 5;
             lastnameLabel.Text = "Lastname:";
             // 
             // emailLabel
             // 
             emailLabel.AutoSize = true;
-            emailLabel.Location = new System.Drawing.Point(44, 81);
+            emailLabel.Location = new System.Drawing.Point(54, 102);
             emailLabel.Name = "emailLabel";
             emailLabel.Size = new System.Drawing.Size(35, 13);
-            emailLabel.TabIndex = 5;
+            emailLabel.TabIndex = 7;
             emailLabel.Text = "Email:";
             // 
             // userSecretLabel
             // 
             userSecretLabel.AutoSize = true;
-            userSecretLabel.Location = new System.Drawing.Point(45, 107);
+            userSecretLabel.Location = new System.Drawing.Point(54, 128);
             userSecretLabel.Name = "userSecretLabel";
-            userSecretLabel.Size = new System.Drawing.Size(56, 13);
-            userSecretLabel.TabIndex = 7;
-            userSecretLabel.Text = "Password:";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(45, 133);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(94, 13);
-            label1.TabIndex = 10;
-            label1.Text = "Confirm Password:";
+            userSecretLabel.Size = new System.Drawing.Size(66, 13);
+            userSecretLabel.TabIndex = 9;
+            userSecretLabel.Text = "User Secret:";
             // 
             // projectManagementDataSet
             // 
@@ -123,75 +122,67 @@ namespace OOAD_Project
             this.tableAdapterManager.TasksTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = OOAD_Project.ProjectManagementDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
+            // idTextBox
+            // 
+            this.idTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "Id", true));
+            this.idTextBox.Location = new System.Drawing.Point(142, 72);
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.ReadOnly = true;
+            this.idTextBox.Size = new System.Drawing.Size(207, 20);
+            this.idTextBox.TabIndex = 2;
+            // 
             // firstnameTextBox
             // 
             this.firstnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "Firstname", true));
-            this.firstnameTextBox.Location = new System.Drawing.Point(148, 26);
+            this.firstnameTextBox.Location = new System.Drawing.Point(490, 72);
             this.firstnameTextBox.Name = "firstnameTextBox";
+            this.firstnameTextBox.ReadOnly = true;
             this.firstnameTextBox.Size = new System.Drawing.Size(207, 20);
-            this.firstnameTextBox.TabIndex = 2;
-            this.firstnameTextBox.Text = " ";
+            this.firstnameTextBox.TabIndex = 4;
             // 
             // lastnameTextBox
             // 
             this.lastnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "Lastname", true));
-            this.lastnameTextBox.Location = new System.Drawing.Point(148, 52);
+            this.lastnameTextBox.Location = new System.Drawing.Point(490, 98);
             this.lastnameTextBox.Name = "lastnameTextBox";
+            this.lastnameTextBox.ReadOnly = true;
             this.lastnameTextBox.Size = new System.Drawing.Size(207, 20);
-            this.lastnameTextBox.TabIndex = 4;
+            this.lastnameTextBox.TabIndex = 6;
             // 
             // emailTextBox
             // 
             this.emailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "Email", true));
-            this.emailTextBox.Location = new System.Drawing.Point(148, 78);
+            this.emailTextBox.Location = new System.Drawing.Point(142, 99);
             this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.ReadOnly = true;
             this.emailTextBox.Size = new System.Drawing.Size(207, 20);
-            this.emailTextBox.TabIndex = 6;
+            this.emailTextBox.TabIndex = 8;
             // 
             // userSecretTextBox
             // 
             this.userSecretTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "UserSecret", true));
-            this.userSecretTextBox.Location = new System.Drawing.Point(148, 104);
+            this.userSecretTextBox.Location = new System.Drawing.Point(142, 125);
             this.userSecretTextBox.Name = "userSecretTextBox";
+            this.userSecretTextBox.ReadOnly = true;
             this.userSecretTextBox.Size = new System.Drawing.Size(207, 20);
-            this.userSecretTextBox.TabIndex = 8;
+            this.userSecretTextBox.TabIndex = 10;
             // 
-            // secretConfirmationTextBox
+            // backBtn
             // 
-            this.secretConfirmationTextBox.Location = new System.Drawing.Point(148, 130);
-            this.secretConfirmationTextBox.Name = "secretConfirmationTextBox";
-            this.secretConfirmationTextBox.Size = new System.Drawing.Size(207, 20);
-            this.secretConfirmationTextBox.TabIndex = 9;
+            this.backBtn.Location = new System.Drawing.Point(629, 149);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(68, 38);
+            this.backBtn.TabIndex = 11;
+            this.backBtn.Text = "Back";
+            this.backBtn.UseVisualStyleBackColor = true;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
-            // registerBtn
-            // 
-            this.registerBtn.Location = new System.Drawing.Point(47, 183);
-            this.registerBtn.Name = "registerBtn";
-            this.registerBtn.Size = new System.Drawing.Size(308, 41);
-            this.registerBtn.TabIndex = 11;
-            this.registerBtn.Text = "Register";
-            this.registerBtn.UseVisualStyleBackColor = true;
-            this.registerBtn.Click += new System.EventHandler(this.registerBtn_Click);
-            // 
-            // cancelBtn
-            // 
-            this.cancelBtn.Location = new System.Drawing.Point(47, 241);
-            this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(308, 41);
-            this.cancelBtn.TabIndex = 12;
-            this.cancelBtn.Text = "Cancel";
-            this.cancelBtn.UseVisualStyleBackColor = true;
-            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
-            // 
-            // RegistrationForm
+            // ViewUserDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 310);
-            this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.registerBtn);
-            this.Controls.Add(label1);
-            this.Controls.Add(this.secretConfirmationTextBox);
+            this.ClientSize = new System.Drawing.Size(750, 215);
+            this.Controls.Add(this.backBtn);
             this.Controls.Add(userSecretLabel);
             this.Controls.Add(this.userSecretTextBox);
             this.Controls.Add(emailLabel);
@@ -200,8 +191,10 @@ namespace OOAD_Project
             this.Controls.Add(this.lastnameTextBox);
             this.Controls.Add(firstnameLabel);
             this.Controls.Add(this.firstnameTextBox);
-            this.Name = "RegistrationForm";
-            this.Text = "Register";
+            this.Controls.Add(idLabel);
+            this.Controls.Add(this.idTextBox);
+            this.Name = "ViewUserDetailsForm";
+            this.Text = "ViewUserDetailsForm";
             ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectUsersBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -215,12 +208,11 @@ namespace OOAD_Project
         private System.Windows.Forms.BindingSource projectUsersBindingSource;
         private ProjectManagementDataSetTableAdapters.ProjectUsersTableAdapter projectUsersTableAdapter;
         private ProjectManagementDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.TextBox idTextBox;
         private System.Windows.Forms.TextBox firstnameTextBox;
         private System.Windows.Forms.TextBox lastnameTextBox;
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.TextBox userSecretTextBox;
-        private System.Windows.Forms.TextBox secretConfirmationTextBox;
-        private System.Windows.Forms.Button registerBtn;
-        private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.Button backBtn;
     }
 }

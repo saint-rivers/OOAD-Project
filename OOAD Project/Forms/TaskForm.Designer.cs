@@ -33,6 +33,7 @@ namespace OOAD_Project
             System.Windows.Forms.Label titleLabel;
             System.Windows.Forms.Label deadlineLabel;
             System.Windows.Forms.Label descriptionLabel;
+            System.Windows.Forms.Label assignedToLabel;
             this.projectManagementDataSet = new OOAD_Project.ProjectManagementDataSet();
             this.tasksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tasksTableAdapter = new OOAD_Project.ProjectManagementDataSetTableAdapters.TasksTableAdapter();
@@ -41,9 +42,12 @@ namespace OOAD_Project
             this.deadlineDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
             this.addTaskBtn = new System.Windows.Forms.Button();
+            this.cancelBtn = new System.Windows.Forms.Button();
+            this.assignedToComboBox = new System.Windows.Forms.ComboBox();
             titleLabel = new System.Windows.Forms.Label();
             deadlineLabel = new System.Windows.Forms.Label();
             descriptionLabel = new System.Windows.Forms.Label();
+            assignedToLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tasksBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +64,7 @@ namespace OOAD_Project
             // deadlineLabel
             // 
             deadlineLabel.AutoSize = true;
-            deadlineLabel.Location = new System.Drawing.Point(41, 175);
+            deadlineLabel.Location = new System.Drawing.Point(41, 183);
             deadlineLabel.Name = "deadlineLabel";
             deadlineLabel.Size = new System.Drawing.Size(52, 13);
             deadlineLabel.TabIndex = 4;
@@ -69,7 +73,7 @@ namespace OOAD_Project
             // descriptionLabel
             // 
             descriptionLabel.AutoSize = true;
-            descriptionLabel.Location = new System.Drawing.Point(41, 73);
+            descriptionLabel.Location = new System.Drawing.Point(41, 91);
             descriptionLabel.Name = "descriptionLabel";
             descriptionLabel.Size = new System.Drawing.Size(63, 13);
             descriptionLabel.TabIndex = 5;
@@ -109,7 +113,7 @@ namespace OOAD_Project
             // deadlineDateTimePicker
             // 
             this.deadlineDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.tasksBindingSource, "Deadline", true));
-            this.deadlineDateTimePicker.Location = new System.Drawing.Point(147, 169);
+            this.deadlineDateTimePicker.Location = new System.Drawing.Point(147, 177);
             this.deadlineDateTimePicker.Name = "deadlineDateTimePicker";
             this.deadlineDateTimePicker.Size = new System.Drawing.Size(225, 20);
             this.deadlineDateTimePicker.TabIndex = 5;
@@ -117,7 +121,7 @@ namespace OOAD_Project
             // descriptionRichTextBox
             // 
             this.descriptionRichTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tasksBindingSource, "Description", true));
-            this.descriptionRichTextBox.Location = new System.Drawing.Point(147, 70);
+            this.descriptionRichTextBox.Location = new System.Drawing.Point(147, 88);
             this.descriptionRichTextBox.Name = "descriptionRichTextBox";
             this.descriptionRichTextBox.Size = new System.Drawing.Size(225, 83);
             this.descriptionRichTextBox.TabIndex = 6;
@@ -125,18 +129,50 @@ namespace OOAD_Project
             // 
             // addTaskBtn
             // 
-            this.addTaskBtn.Location = new System.Drawing.Point(44, 213);
+            this.addTaskBtn.Location = new System.Drawing.Point(44, 220);
             this.addTaskBtn.Name = "addTaskBtn";
             this.addTaskBtn.Size = new System.Drawing.Size(328, 44);
             this.addTaskBtn.TabIndex = 7;
             this.addTaskBtn.Text = "Add Task";
             this.addTaskBtn.UseVisualStyleBackColor = true;
+            this.addTaskBtn.Click += new System.EventHandler(this.addTaskBtn_Click);
+            // 
+            // cancelBtn
+            // 
+            this.cancelBtn.Location = new System.Drawing.Point(44, 270);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(328, 44);
+            this.cancelBtn.TabIndex = 8;
+            this.cancelBtn.Text = "Cancel";
+            this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
+            // assignedToLabel
+            // 
+            assignedToLabel.AutoSize = true;
+            assignedToLabel.Location = new System.Drawing.Point(41, 64);
+            assignedToLabel.Name = "assignedToLabel";
+            assignedToLabel.Size = new System.Drawing.Size(69, 13);
+            assignedToLabel.TabIndex = 8;
+            assignedToLabel.Text = "Assigned To:";
+            // 
+            // assignedToComboBox
+            // 
+            this.assignedToComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tasksBindingSource, "AssignedTo", true));
+            this.assignedToComboBox.FormattingEnabled = true;
+            this.assignedToComboBox.Location = new System.Drawing.Point(147, 61);
+            this.assignedToComboBox.Name = "assignedToComboBox";
+            this.assignedToComboBox.Size = new System.Drawing.Size(225, 21);
+            this.assignedToComboBox.TabIndex = 9;
             // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(429, 280);
+            this.ClientSize = new System.Drawing.Size(415, 339);
+            this.Controls.Add(assignedToLabel);
+            this.Controls.Add(this.assignedToComboBox);
+            this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.addTaskBtn);
             this.Controls.Add(descriptionLabel);
             this.Controls.Add(this.descriptionRichTextBox);
@@ -164,5 +200,7 @@ namespace OOAD_Project
         private System.Windows.Forms.DateTimePicker deadlineDateTimePicker;
         private System.Windows.Forms.RichTextBox descriptionRichTextBox;
         private System.Windows.Forms.Button addTaskBtn;
+        private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.ComboBox assignedToComboBox;
     }
 }
