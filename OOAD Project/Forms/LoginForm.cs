@@ -36,12 +36,11 @@ namespace OOAD_Project
 
         private void initLogin()
         {
-            this.isValidLogin = validateLogin(emailLoginTextBox.Text, passwordTextBox.Text);
+            isValidLogin = validateLogin(emailLoginTextBox.Text, passwordTextBox.Text);
             if (isValidLogin)
             {
-                this.DialogResult = DialogResult.OK;
-                projects = getProjectsOfUser(this.projectUser.id);
-                Console.WriteLine(projects);
+                DialogResult = DialogResult.OK;
+                projects = getProjectsOfUser(projectUser.id);
                 Close();
             }
             else
@@ -55,7 +54,8 @@ namespace OOAD_Project
             List<Project> _projects = new List<Project>();
 
             string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
-            string _query = @"SELECT * FROM [dbo].[view_projects_of_user](@user_id)";
+            string _query = @"SELECT p.Id, p.OwnerId, p.Title, p.Description, p.DateCreated
+                            FROM ProjectMembers m inner join Projects p on p.Id = m.ProjectId where UserId=@user_id";
 
             using (SqlConnection conn = new SqlConnection(_connStr))
             {

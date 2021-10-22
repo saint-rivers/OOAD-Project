@@ -19,6 +19,7 @@ namespace OOAD_Project
         {
             InitializeComponent();
             runLoginDialog();
+
         }
 
         private void runLoginDialog()
@@ -35,14 +36,27 @@ namespace OOAD_Project
 
                 // get data from login form
                 currentUser = loginForm.projectUser;
-                this.projects = loginForm.projects; 
+                projects = loginForm.projects;
 
                 if (projects.Count > 0) {
-                    var p = projects[0].Id;
-                    var tmp = getProjectMembers(projects[0].Id);
+                    int defaultSelectedProject = projects[0].Id;
+                    string[] tmp = getProjectMembers(defaultSelectedProject);
                     firstnameListBox.Items.AddRange(tmp);
+
+                    string[] userProjects = MapProjectListToStringArray(loginForm.projects);
+                    projectTitleComboBox.Items.AddRange(userProjects);
                 }
             }
+        }
+
+        private string[] MapProjectListToStringArray(List<Project> projects)
+        {
+            List<string> results = new List<string>();
+            foreach (Project project in projects)
+            {
+                results.Add(project.Title);
+            }
+            return results.ToArray();
         }
 
         private void ClearMainForm()
@@ -60,16 +74,16 @@ namespace OOAD_Project
 
         private void newProjectBtn_Click(object sender, EventArgs e)
         {
-            ProjectForm form = new ProjectForm();
+            ProjectForm form = new ProjectForm(currentUser.id);
             form.ShowDialog();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'projectManagementDataSet.ProjectUsers' table. You can move, or remove it, as needed.
-            this.projectUsersTableAdapter.Fill(this.projectManagementDataSet.ProjectUsers);
+            //this.projectUsersTableAdapter.Fill(this.projectManagementDataSet.ProjectUsers);
             // TODO: This line of code loads data into the 'projectManagementDataSet.Projects' table. You can move, or remove it, as needed.
-            this.projectsTableAdapter.Fill(this.projectManagementDataSet.Projects);
+            //this.projectsTableAdapter.Fill(this.projectManagementDataSet.Projects);
 
         }
 
