@@ -14,15 +14,24 @@ namespace OOAD_Project
         List<string> memberNames = new List<string>();
         List<Project> projects = new List<Project>();
         ProjectUser currentUser;
+        Dictionary<string, int> projectNameId;
 
         public MainForm()
         {
-            InitializeComponent();
-            runLoginDialog();
-
+            InitializeComponent();            
         }
 
-        private void runLoginDialog()
+        private static Dictionary<string, int> MapifyProject(List<Project> projects)
+        {
+            Dictionary<string, int> projectNameId = new Dictionary<string, int>();
+            foreach (Project project in projects)
+            {
+                projectNameId.Add(project.Title, project.Id);
+            }
+            return projectNameId;
+        }
+
+        private void RunLoginDialog()
         {
             LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
@@ -40,13 +49,27 @@ namespace OOAD_Project
 
                 if (projects.Count > 0) {
                     int defaultSelectedProject = projects[0].Id;
-                    string[] tmp = getProjectMembers(defaultSelectedProject);
+                    string[] tmp = GetProjectMembers(defaultSelectedProject);
                     firstnameListBox.Items.AddRange(tmp);
 
                     string[] userProjects = MapProjectListToStringArray(loginForm.projects);
                     projectTitleComboBox.Items.AddRange(userProjects);
+                    projectTitleComboBox.SelectedIndex = 0;
+                    projectNameId = MapifyProject(projects);
+
+                    ChangeActiveProject();
                 }
             }
+        }
+
+        private void ChangeActiveProject()
+        {
+            if (projectTitleComboBox.SelectedIndex == -1 || projectNameId == null)
+            {               
+                return;
+            }
+            int _projectId = projectNameId[projectTitleComboBox.SelectedItem.ToString()];
+            projectIdTextBox.Text = _projectId.ToString();
         }
 
         private string[] MapProjectListToStringArray(List<Project> projects)
@@ -85,9 +108,10 @@ namespace OOAD_Project
             // TODO: This line of code loads data into the 'projectManagementDataSet.Projects' table. You can move, or remove it, as needed.
             //this.projectsTableAdapter.Fill(this.projectManagementDataSet.Projects);
 
+            RunLoginDialog();
         }
 
-        private string[] getProjectMembers(int projectId)
+        private string[] GetProjectMembers(int projectId)
         {
             string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
             string _query = @"SELECT * FROM [dbo].[view_members_in_group](@project_id)";
@@ -148,12 +172,17 @@ namespace OOAD_Project
 
         private void logoutBtn_Click(object sender, EventArgs e)
         {
-            runLoginDialog();
+            RunLoginDialog();
         }
 
         private void settingsBtn_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void projectTitleComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangeActiveProject();
         }
     }
 }

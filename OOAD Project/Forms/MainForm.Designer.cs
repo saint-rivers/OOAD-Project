@@ -39,7 +39,6 @@ namespace OOAD_Project
             this.tableAdapterManager = new OOAD_Project.ProjectManagementDataSetTableAdapters.TableAdapterManager();
             this.projectTitleComboBox = new System.Windows.Forms.ComboBox();
             this.newProjectBtn = new System.Windows.Forms.Button();
-            this.projectIdTextBox = new System.Windows.Forms.TextBox();
             this.addMemberBtn = new System.Windows.Forms.Button();
             this.projectUsersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.projectUsersTableAdapter = new OOAD_Project.ProjectManagementDataSetTableAdapters.ProjectUsersTableAdapter();
@@ -48,6 +47,7 @@ namespace OOAD_Project
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.logoutBtn = new System.Windows.Forms.Button();
             this.settingsBtn = new System.Windows.Forms.Button();
+            this.projectIdTextBox = new System.Windows.Forms.TextBox();
             titleLabel = new System.Windows.Forms.Label();
             firstnameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSet)).BeginInit();
@@ -114,6 +114,7 @@ namespace OOAD_Project
             this.projectTitleComboBox.Name = "projectTitleComboBox";
             this.projectTitleComboBox.Size = new System.Drawing.Size(317, 21);
             this.projectTitleComboBox.TabIndex = 3;
+            this.projectTitleComboBox.SelectedIndexChanged += new System.EventHandler(this.projectTitleComboBox_SelectedIndexChanged);
             // 
             // newProjectBtn
             // 
@@ -124,15 +125,6 @@ namespace OOAD_Project
             this.newProjectBtn.Text = "New Project";
             this.newProjectBtn.UseVisualStyleBackColor = true;
             this.newProjectBtn.Click += new System.EventHandler(this.newProjectBtn_Click);
-            // 
-            // projectIdTextBox
-            // 
-            this.projectIdTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectsBindingSource, "Id", true));
-            this.projectIdTextBox.Location = new System.Drawing.Point(104, 65);
-            this.projectIdTextBox.Name = "projectIdTextBox";
-            this.projectIdTextBox.ReadOnly = true;
-            this.projectIdTextBox.Size = new System.Drawing.Size(52, 20);
-            this.projectIdTextBox.TabIndex = 5;
             // 
             // addMemberBtn
             // 
@@ -202,6 +194,15 @@ namespace OOAD_Project
             this.settingsBtn.UseVisualStyleBackColor = true;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
+            // projectIdTextBox
+            // 
+            this.projectIdTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectsBindingSource, "Id", true));
+            this.projectIdTextBox.Location = new System.Drawing.Point(104, 65);
+            this.projectIdTextBox.Name = "projectIdTextBox";
+            this.projectIdTextBox.ReadOnly = true;
+            this.projectIdTextBox.Size = new System.Drawing.Size(52, 20);
+            this.projectIdTextBox.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,7 +240,6 @@ namespace OOAD_Project
         private ProjectManagementDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.ComboBox projectTitleComboBox;
         private System.Windows.Forms.Button newProjectBtn;
-        private System.Windows.Forms.TextBox projectIdTextBox;
         private System.Windows.Forms.Button addMemberBtn;
         private System.Windows.Forms.BindingSource projectUsersBindingSource;
         private ProjectManagementDataSetTableAdapters.ProjectUsersTableAdapter projectUsersTableAdapter;
@@ -248,6 +248,7 @@ namespace OOAD_Project
         private System.Windows.Forms.Label welcomeLabel;
         private System.Windows.Forms.Button logoutBtn;
         private System.Windows.Forms.Button settingsBtn;
+        private System.Windows.Forms.TextBox projectIdTextBox;
     }
 }
 
