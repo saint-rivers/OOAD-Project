@@ -8,10 +8,20 @@ namespace OOAD_Project.Models
 {
     public class Project
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public int OwnerId { get; set; }
-        public DateTime DateCreated { get; set; }
+        public Project() { }
+
+        public Project(string title, string description, int ownerId, DateTime dateCreated)
+        {
+            this.title = title;
+            this.description = description;
+            this.ownerId = ownerId;
+            this.dateCreated = dateCreated;
+        }
+
+        public int id { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public int ownerId { get; set; }
+        public DateTime dateCreated { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace OOAD_Project
         public ViewUserDetailsForm(int userId)
         {
             InitializeComponent();
-            ProjectUser user = GetUser(userId);
+            Member user = GetUser(userId);
             idTextBox.Text = user.id.ToString();
             firstnameTextBox.Text = user.firstname;
             lastnameTextBox.Text = user.lastname;
@@ -31,12 +31,12 @@ namespace OOAD_Project
 
         }
 
-        private ProjectUser GetUser(int id)
+        private Member GetUser(int id)
         {
             string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
             string _query = @"SELECT * FROM ProjectUsers WHERE id = @id";
 
-            ProjectUser user = new ProjectUser();
+            Member user = new Member();
 
             using (SqlConnection conn = new SqlConnection(_connStr))
             {
@@ -59,7 +59,7 @@ namespace OOAD_Project
                                 string lastname = reader.GetString(2);
                                 string email = reader.GetString(3);
 
-                                user = new ProjectUser(userId, firstname, lastname, email);
+                                user = new Member(userId, firstname, lastname, email);
                             }
                         }
                         else

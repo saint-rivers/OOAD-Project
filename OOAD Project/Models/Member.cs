@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace OOAD_Project.Models
 {
-    public class ProjectUser
+    public class Member
     {
-        public ProjectUser() { }
+        public Member() { }
 
-        public ProjectUser(int userId, string firstname, string lastname, string email)
+        public Member(int id, string firstname, string lastname, string email)
         {
-            this.id = userId;
+            this.id = id;
             this.firstname = firstname;
             this.lastname = lastname;
             this.email = email;

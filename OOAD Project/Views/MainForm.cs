@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using OOAD_Project.Controllers;
 using OOAD_Project.Models;
 
 namespace OOAD_Project
@@ -13,12 +14,17 @@ namespace OOAD_Project
         //Dictionary<int, string> members = new Dictionary<int, string>();
         List<string> memberNames = new List<string>();
         List<Project> projects = new List<Project>();
-        ProjectUser currentUser;
+        Member currentUser;
         Dictionary<string, int> projectNameId;
+
+        private ProjectController projectController;
+        private MemberController memberController;
 
         public MainForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            projectController = new ProjectController();
+            memberController = new MemberController();
         }
 
         private static Dictionary<string, int> MapifyProject(List<Project> projects)
@@ -26,14 +32,14 @@ namespace OOAD_Project
             Dictionary<string, int> projectNameId = new Dictionary<string, int>();
             foreach (Project project in projects)
             {
-                projectNameId.Add(project.Title, project.Id);
+                projectNameId.Add(project.title, project.id);
             }
             return projectNameId;
         }
 
         private void RunLoginDialog()
         {
-            LoginForm loginForm = new LoginForm();
+            LoginForm loginForm = new LoginForm(projectController, memberController);
             loginForm.ShowDialog();
 
             if (loginForm.DialogResult == DialogResult.OK)
@@ -41,25 +47,31 @@ namespace OOAD_Project
                 ClearMainForm();
 
                 // say hello
-                welcomeLabel.Text = "Hello, " + loginForm.projectUser.firstname;
+                welcomeLabel.Text = "Hello, " + loginForm.currentUser.firstname;
 
                 // get data from login form
-                currentUser = loginForm.projectUser;
+                currentUser = loginForm.currentUser;
                 projects = loginForm.projects;
 
+                projectTitleComboBox.Items.Clear();
+
                 if (projects.Count > 0) {
-                    int defaultSelectedProject = projects[0].Id;
+                    int defaultSelectedProject = projects[0].id;
                     string[] tmp = GetProjectMembers(defaultSelectedProject);
                     firstnameListBox.Items.AddRange(tmp);
 
-                    string[] userProjects = MapProjectListToStringArray(loginForm.projects);
-                    projectTitleComboBox.Items.AddRange(userProjects);
-                    projectTitleComboBox.SelectedIndex = 0;
-                    projectNameId = MapifyProject(projects);
-
+                    LoadProjectsToForm(loginForm.projects);
                     ChangeActiveProject();
                 }
             }
+        }
+
+        private void LoadProjectsToForm(List<Project> projects)
+        {
+            string[] userProjects = MapProjectListToStringArray(projects);
+            projectTitleComboBox.Items.AddRange(userProjects);
+            projectTitleComboBox.SelectedIndex = 0;
+            projectNameId = MapifyProject(projects);
         }
 
         private void ChangeActiveProject()
@@ -77,7 +89,7 @@ namespace OOAD_Project
             List<string> results = new List<string>();
             foreach (Project project in projects)
             {
-                results.Add(project.Title);
+                results.Add(project.title);
             }
             return results.ToArray();
         }
@@ -97,17 +109,22 @@ namespace OOAD_Project
 
         private void newProjectBtn_Click(object sender, EventArgs e)
         {
-            ProjectForm form = new ProjectForm(currentUser.id);
+            ProjectForm form = new ProjectForm(currentUser.id, projectController, memberController);
+            int _projectId = form.projectId;
+
+            if (_projectId != -1)
+            {
+                // get list of projects 
+                int _memberId = memberController.GetValidatedUser().id;
+                List<Project> _projects = projectController.GetProjectsOfUser(_memberId);
+                LoadProjectsToForm(_projects);
+            }
             form.ShowDialog();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'projectManagementDataSet.ProjectUsers' table. You can move, or remove it, as needed.
-            //this.projectUsersTableAdapter.Fill(this.projectManagementDataSet.ProjectUsers);
-            // TODO: This line of code loads data into the 'projectManagementDataSet.Projects' table. You can move, or remove it, as needed.
-            //this.projectsTableAdapter.Fill(this.projectManagementDataSet.Projects);
-
+            tasksTableAdapter.Fill(projectManagementDataSet.Tasks);          
             RunLoginDialog();
         }
 
