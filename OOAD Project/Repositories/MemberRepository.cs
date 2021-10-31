@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOAD_Project.Controllers
+namespace OOAD_Project.Repositories
 {
-    public class MemberController : BaseController
+    public class MemberRepository : BaseRepository
     {
         public Member currentUser = new Member();
 
@@ -79,6 +79,43 @@ namespace OOAD_Project.Controllers
                 }
 
             }
+        }
+
+        public string[] GetProjectMembers(int projectId)
+        {
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"SELECT * FROM [dbo].[view_members_in_group](@project_id)";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    comm.Parameters.AddWithValue("@project_id", projectId);
+                    int result = comm.ExecuteNonQuery();
+
+                    // result gives the -1 output.. but on insert its 1
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(0);
+                                string name = reader.GetString(1);
+                                //members.Add(id, name);
+                                name = "#" + id + " " + name;
+                                memberNames.Add(name);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No data found.");
+                        }
+                    }
+                }
+            }
+            return memberNames.ToArray();
         }
 
 

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace OOAD_Project.Controllers
+namespace OOAD_Project.Repositories
 {
-    public class ProjectController : BaseController
+    public class ProjectRepository : BaseRepository
     {
 
         public List<Project> GetProjectsOfUser(int user_id)

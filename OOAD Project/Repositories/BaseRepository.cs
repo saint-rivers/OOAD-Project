@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOAD_Project.Controllers
+namespace OOAD_Project.Repositories
 {
-    public class BaseController
+    public class BaseRepository
     {
         public static string GetConnectionString()
         {

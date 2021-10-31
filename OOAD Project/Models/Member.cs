@@ -22,6 +22,5 @@ namespace OOAD_Project.Models
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string email { get; set; }
-        public int UserId { get; }
     }
 }

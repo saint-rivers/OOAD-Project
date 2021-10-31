@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
-using OOAD_Project.Controllers;
 using OOAD_Project.Models;
+using OOAD_Project.Services;
 
 namespace OOAD_Project
 {
@@ -17,29 +17,19 @@ namespace OOAD_Project
         Member currentUser;
         Dictionary<string, int> projectNameId;
 
-        private ProjectController projectController;
-        private MemberController memberController;
+        private ProjectService projectService;
+        private MemberService memberService;
 
         public MainForm()
         {
             InitializeComponent();
-            projectController = new ProjectController();
-            memberController = new MemberController();
-        }
-
-        private static Dictionary<string, int> MapifyProject(List<Project> projects)
-        {
-            Dictionary<string, int> projectNameId = new Dictionary<string, int>();
-            foreach (Project project in projects)
-            {
-                projectNameId.Add(project.title, project.id);
-            }
-            return projectNameId;
-        }
+            projectService = new ProjectService();
+            memberService = new MemberService();
+        }        
 
         private void RunLoginDialog()
         {
-            LoginForm loginForm = new LoginForm(projectController, memberController);
+            LoginForm loginForm = new LoginForm(projectService, memberService);
             loginForm.ShowDialog();
 
             if (loginForm.DialogResult == DialogResult.OK)
@@ -57,7 +47,7 @@ namespace OOAD_Project
 
                 if (projects.Count > 0) {
                     int defaultSelectedProject = projects[0].id;
-                    string[] tmp = GetProjectMembers(defaultSelectedProject);
+                    string[] tmp = memberService.GetProjectMembers(defaultSelectedProject);
                     firstnameListBox.Items.AddRange(tmp);
 
                     LoadProjectsToForm(loginForm.projects);
@@ -68,10 +58,12 @@ namespace OOAD_Project
 
         private void LoadProjectsToForm(List<Project> projects)
         {
-            string[] userProjects = MapProjectListToStringArray(projects);
+            projectTitleComboBox.Items.Clear();
+
+            string[] userProjects = projectService.MapProjectListToStringArray(projects);
             projectTitleComboBox.Items.AddRange(userProjects);
             projectTitleComboBox.SelectedIndex = 0;
-            projectNameId = MapifyProject(projects);
+            projectNameId = projectService.MapifyProject(projects);
         }
 
         private void ChangeActiveProject()
@@ -83,16 +75,7 @@ namespace OOAD_Project
             int _projectId = projectNameId[projectTitleComboBox.SelectedItem.ToString()];
             projectIdTextBox.Text = _projectId.ToString();
         }
-
-        private string[] MapProjectListToStringArray(List<Project> projects)
-        {
-            List<string> results = new List<string>();
-            foreach (Project project in projects)
-            {
-                results.Add(project.title);
-            }
-            return results.ToArray();
-        }
+       
 
         private void ClearMainForm()
         {
@@ -109,60 +92,23 @@ namespace OOAD_Project
 
         private void newProjectBtn_Click(object sender, EventArgs e)
         {
-            ProjectForm form = new ProjectForm(currentUser.id, projectController, memberController);
+            ProjectForm form = new ProjectForm(currentUser.id, projectService, memberService);
+            form.ShowDialog();
             int _projectId = form.projectId;
 
             if (_projectId != -1)
             {
                 // get list of projects 
-                int _memberId = memberController.GetValidatedUser().id;
-                List<Project> _projects = projectController.GetProjectsOfUser(_memberId);
+                int _memberId = memberService.GetValidatedUser().id;
+                List<Project> _projects = projectService.GetProjectsOfUser(_memberId);
                 LoadProjectsToForm(_projects);
             }
-            form.ShowDialog();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             tasksTableAdapter.Fill(projectManagementDataSet.Tasks);          
             RunLoginDialog();
-        }
-
-        private string[] GetProjectMembers(int projectId)
-        {
-            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
-            string _query = @"SELECT * FROM [dbo].[view_members_in_group](@project_id)";
-
-            using (SqlConnection conn = new SqlConnection(_connStr))
-            {
-                using (SqlCommand comm = new SqlCommand(_query, conn))
-                { 
-                    conn.Open();
-                    comm.Parameters.AddWithValue("@project_id", projectId);
-                    int result = comm.ExecuteNonQuery();
-
-                    // result gives the -1 output.. but on insert its 1
-                    using (SqlDataReader reader = comm.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                int id = reader.GetInt32(0);
-                                string name = reader.GetString(1);
-                                //members.Add(id, name);
-                                name = "#"+id + " " +name;
-                                memberNames.Add(name);
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("No data found.");
-                        }
-                    }
-                }
-            }
-            return memberNames.ToArray();
         }
 
         private void addMemberBtn_Click(object sender, EventArgs e)

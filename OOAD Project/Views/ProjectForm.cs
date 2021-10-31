@@ -8,26 +8,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OOAD_Project.Controllers;
 using OOAD_Project.Models;
+using OOAD_Project.Services;
+using OOAD_Project.Views;
 
 namespace OOAD_Project
 {
-    public partial class ProjectForm : Form
+    public partial class ProjectForm : PForm
     {
         public int ownerId = -1;
         public int projectId = -1;
 
-        private ProjectController projectController;
-        private MemberController memberController;
-
-        public ProjectForm(int ownerId, ProjectController projectController, MemberController memberController)
+        public ProjectForm(int ownerId, ProjectService projectService, MemberService memberService)
         {
             InitializeComponent();
             this.ownerId = ownerId;
 
-            this.projectController = projectController;
-            this.memberController = memberController;
+            this.projectService = projectService;
+            this.memberService = memberService;
         }
 
         private void ProjectForm_Load(object sender, EventArgs e)
@@ -50,24 +48,19 @@ namespace OOAD_Project
             if (ownerId == -1) return;
 
             Project member = new Project(
-                titleTextBox.Text, 
-                descriptionRichTextBox.Text, 
-                ownerId, 
+                titleTextBox.Text,
+                descriptionRichTextBox.Text,
+                ownerId,
                 DateTime.Now.Date
             );
 
-            projectId = projectController.InsertProject(member);
-
-            if (projectId != -1)
-            {
-                memberController.InsertProjectMember(ownerId, projectId);
-            }
-
+            projectService.CreateProjectAndAddUsersToProject(member, ownerId );
             MessageBox.Show("Project created.");
             Close();
         }
 
         
+
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             Close();

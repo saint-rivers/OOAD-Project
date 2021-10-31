@@ -8,27 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OOAD_Project.Controllers;
+using OOAD_Project.Repositories;
 using OOAD_Project.Models;
+using OOAD_Project.Services;
+using OOAD_Project.Views;
 
 namespace OOAD_Project
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : PForm
     {
         bool isValidLogin = false;
         public List<Project> projects = new List<Project>();
         public Member currentUser;
 
-        private ProjectController projectController;
-        private MemberController memberController;
-
-        public LoginForm(ProjectController projectController, MemberController memberController)
+        public LoginForm(ProjectService projectService, MemberService memberService)
         {
             InitializeComponent();
             FormClosing += LoginForm_Closing;
 
-            this.projectController = projectController;
-            this.memberController = memberController;
+            this.projectService = projectService;
+            this.memberService = memberService;
         }
 
         private void registrationBtn_Click(object sender, EventArgs e)
@@ -44,11 +43,11 @@ namespace OOAD_Project
 
         private void initLogin()
         {
-            isValidLogin = memberController.ValidateLogin(emailLoginTextBox.Text, passwordTextBox.Text);
+            isValidLogin = memberService.ValidateLogin(emailLoginTextBox.Text, passwordTextBox.Text);
             if (isValidLogin)
             {
                 DialogResult = DialogResult.OK;
-                projects = projectController.GetProjectsOfUser(memberController.currentUser.id);
+                projects = projectService.GetProjectsOfUser(memberService.GetCurrentUserId());
                 Close();
             }
             else
@@ -75,7 +74,7 @@ namespace OOAD_Project
 
         private void LoginForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            currentUser = memberController.currentUser;
+            currentUser = memberService.GetCurrentUser();
         }
     }
 }
