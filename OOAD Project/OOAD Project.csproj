@@ -51,7 +51,6 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\ProjectService.cs" />
-    <Compile Include="Services\ProjectUser.cs" />
     <Compile Include="Views\AddMemberForm.cs">
       <SubType>Form</SubType>
     </Compile>

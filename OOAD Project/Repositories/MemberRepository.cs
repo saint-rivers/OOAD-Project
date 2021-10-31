@@ -83,6 +83,8 @@ namespace OOAD_Project.Repositories
 
         public string[] GetProjectMembers(int projectId)
         {
+            List<string> _memberNames = new List<string>();
+
             string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
             string _query = @"SELECT * FROM [dbo].[view_members_in_group](@project_id)";
 
@@ -105,7 +107,7 @@ namespace OOAD_Project.Repositories
                                 string name = reader.GetString(1);
                                 //members.Add(id, name);
                                 name = "#" + id + " " + name;
-                                memberNames.Add(name);
+                                _memberNames.Add(name);
                             }
                         }
                         else
@@ -115,7 +117,7 @@ namespace OOAD_Project.Repositories
                     }
                 }
             }
-            return memberNames.ToArray();
+            return _memberNames.ToArray();
         }
 
 
