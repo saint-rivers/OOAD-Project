@@ -11,6 +11,7 @@ namespace OOAD_Project.Views
     public class PForm : Form
     {
         protected ProjectService projectService;
-        protected MemberService memberService; 
+        protected MemberService memberService;
+        protected TaskService taskService;
     }
 }

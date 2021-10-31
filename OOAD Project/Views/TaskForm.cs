@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OOAD_Project.Models;
+using OOAD_Project.Services;
+using OOAD_Project.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,14 +14,18 @@ using System.Windows.Forms;
 
 namespace OOAD_Project
 {
-    public partial class TaskForm : Form
+    public partial class TaskForm : PForm
     {
         int projectId;
 
-        public TaskForm(string projectId)
+        private TaskService taskService;
+
+        public TaskForm(string projectId, TaskService taskService)
         {
             InitializeComponent();
             this.projectId = int.Parse(projectId);
+            this.taskService = taskService;
+
         }
 
         private void tasksBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -43,35 +50,22 @@ namespace OOAD_Project
 
         private void addTaskBtn_Click(object sender, EventArgs e)
         {
-            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
-            string _query = "INSERT INTO Tasks (ProjectId, AssignedTo, Title, Description, Deadline) " +
-                "values (@pid, @assignedto, @title, @description, @deadline)";
-            using (SqlConnection conn = new SqlConnection(_connStr))
-            {
-                using (SqlCommand comm = new SqlCommand())
-                {
-                    comm.Connection = conn;
-                    comm.CommandType = CommandType.Text;
-                    comm.CommandText = _query;
-                    comm.Parameters.AddWithValue("@pid", projectId);
-                    comm.Parameters.AddWithValue("@assignedto", assignedToComboBox.Text);
-                    comm.Parameters.AddWithValue("@title", titleTextBox.Text);
-                    comm.Parameters.AddWithValue("@description", descriptionRichTextBox.Text);
-                    comm.Parameters.AddWithValue("@deadline", deadlineDateTimePicker.Value);
-                    try
-                    {
-                        conn.Open();
-                        comm.ExecuteNonQuery();
-                    }
-                    catch (SqlException ex)
-                    {
-                        // other codes here
-                        // do something with the exception
-                        // don't swallow it.
-                        Console.WriteLine(ex);
-                    }
-                }
-            }
+            // get member id for assignedTo
+
+            int _assignedTo = 3;
+
+            ProjectTask task = new ProjectTask(
+                projectId, titleTextBox.Text, descriptionRichTextBox.Text, _assignedTo, deadlineDateTimePicker.Value
+                );
+
+            taskService.InsertNewTask(task);
+            MessageBox.Show("Added new task.");
+            Close();
+        }
+
+        private void TaskForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
         }
     }
 }

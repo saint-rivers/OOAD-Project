@@ -46,11 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ProjectTask.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\MemberRepository.cs" />
+    <Compile Include="Repositories\TaskRepository.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\ProjectService.cs" />
+    <Compile Include="Services\TaskService.cs" />
     <Compile Include="Views\AddMemberForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -11,11 +11,13 @@ namespace OOAD_Project.Services
     {
         protected ProjectRepository projectController;
         protected MemberRepository memberController;
+        protected TaskRepository taskRepository;
 
         public BaseService()
         {
             projectController = new ProjectRepository();
             memberController = new MemberRepository();
+            taskRepository = new TaskRepository();
         }
     }
 }

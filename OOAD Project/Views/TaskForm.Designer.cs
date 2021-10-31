@@ -79,6 +79,15 @@ namespace OOAD_Project
             descriptionLabel.TabIndex = 5;
             descriptionLabel.Text = "Description:";
             // 
+            // assignedToLabel
+            // 
+            assignedToLabel.AutoSize = true;
+            assignedToLabel.Location = new System.Drawing.Point(41, 64);
+            assignedToLabel.Name = "assignedToLabel";
+            assignedToLabel.Size = new System.Drawing.Size(69, 13);
+            assignedToLabel.TabIndex = 8;
+            assignedToLabel.Text = "Assigned To:";
+            // 
             // projectManagementDataSet
             // 
             this.projectManagementDataSet.DataSetName = "ProjectManagementDataSet";
@@ -147,15 +156,6 @@ namespace OOAD_Project
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
-            // assignedToLabel
-            // 
-            assignedToLabel.AutoSize = true;
-            assignedToLabel.Location = new System.Drawing.Point(41, 64);
-            assignedToLabel.Name = "assignedToLabel";
-            assignedToLabel.Size = new System.Drawing.Size(69, 13);
-            assignedToLabel.TabIndex = 8;
-            assignedToLabel.Text = "Assigned To:";
-            // 
             // assignedToComboBox
             // 
             this.assignedToComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tasksBindingSource, "AssignedTo", true));
@@ -182,6 +182,7 @@ namespace OOAD_Project
             this.Controls.Add(this.titleTextBox);
             this.Name = "TaskForm";
             this.Text = "New Task";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TaskForm_FormClosed);
             this.Load += new System.EventHandler(this.NewTaskForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tasksBindingSource)).EndInit();

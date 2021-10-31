@@ -19,13 +19,15 @@ namespace OOAD_Project
 
         private ProjectService projectService;
         private MemberService memberService;
+        private TaskService taskService;
 
         public MainForm()
         {
             InitializeComponent();
             projectService = new ProjectService();
             memberService = new MemberService();
-        }        
+            taskService = new TaskService();
+        }
 
         private void RunLoginDialog()
         {
@@ -69,13 +71,13 @@ namespace OOAD_Project
         private void ChangeActiveProject()
         {
             if (projectTitleComboBox.SelectedIndex == -1 || projectNameId == null)
-            {               
+            {
                 return;
             }
             int _projectId = projectNameId[projectTitleComboBox.SelectedItem.ToString()];
             projectIdTextBox.Text = _projectId.ToString();
         }
-       
+
 
         private void ClearMainForm()
         {
@@ -86,8 +88,10 @@ namespace OOAD_Project
 
         private void newTaskBtn_Click(object sender, EventArgs e)
         {
-            TaskForm form = new TaskForm(projectIdTextBox.Text);            
-            form.ShowDialog(); 
+            TaskForm form = new TaskForm(projectIdTextBox.Text, taskService);
+            form.ShowDialog();
+            LoadTaskTable(); 
+
         }
 
         private void newProjectBtn_Click(object sender, EventArgs e)
@@ -105,9 +109,14 @@ namespace OOAD_Project
             }
         }
 
+        private void LoadTaskTable()
+        {
+            tasksTableAdapter.Fill(projectManagementDataSet.Tasks);
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
-            tasksTableAdapter.Fill(projectManagementDataSet.Tasks);          
+            LoadTaskTable();        
             RunLoginDialog();
         }
 
