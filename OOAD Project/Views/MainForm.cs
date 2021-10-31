@@ -16,6 +16,9 @@ namespace OOAD_Project
         List<Project> projects = new List<Project>();
         Member currentUser;
         Dictionary<string, int> projectNameId;
+        int selectedProject = -1;
+
+        MemberMap memberMap;
 
         private ProjectService projectService;
         private MemberService memberService;
@@ -48,9 +51,10 @@ namespace OOAD_Project
                 projectTitleComboBox.Items.Clear();
 
                 if (projects.Count > 0) {
-                    int defaultSelectedProject = projects[0].id;
-                    string[] tmp = memberService.GetProjectMembers(defaultSelectedProject);
-                    firstnameListBox.Items.AddRange(tmp);
+                    selectedProject = projects[0].id;
+                    Member[] _members = memberService.GetMembersInProjectAsArray(selectedProject);
+                    memberMap = new MemberMap(_members);
+                    membersListBox.Items.AddRange(memberMap.GetMembersAsNameArray());
 
                     LoadProjectsToForm(loginForm.projects);
                     ChangeActiveProject();
@@ -82,13 +86,13 @@ namespace OOAD_Project
         private void ClearMainForm()
         {
             welcomeLabel.Text = "";
-            firstnameListBox.Items.Clear();
+            membersListBox.Items.Clear();
             memberNames.Clear();
         }
 
         private void newTaskBtn_Click(object sender, EventArgs e)
         {
-            TaskForm form = new TaskForm(projectIdTextBox.Text, taskService);
+            TaskForm form = new TaskForm(projectIdTextBox.Text, taskService, memberService);
             form.ShowDialog();
             LoadTaskTable(); 
 
@@ -122,18 +126,26 @@ namespace OOAD_Project
 
         private void addMemberBtn_Click(object sender, EventArgs e)
         {
-            AddMemberForm addMemberForm = new AddMemberForm();
+            AddMemberForm addMemberForm = new AddMemberForm(selectedProject, memberService);
             addMemberForm.ShowDialog();
+            ReloadMembers();
+        }
+
+        public void ReloadMembers()
+        {
+            Member[] _members = memberService.GetMembersAsArray(selectedProject);
+            memberMap.SetMembers(_members);
+            membersListBox.Items.Clear();
+            membersListBox.Items.AddRange(memberMap.GetMembersAsNameArray());
         }
 
         private void viewMemberBtn_Click(object sender, EventArgs e)
         {
-            if (firstnameListBox.SelectedIndex != -1)
+            if (membersListBox.SelectedIndex != -1)
             {
-                string selectedData = firstnameListBox.SelectedItem.ToString();
-                string id = selectedData.Substring(selectedData.LastIndexOf('#') + 1);
-                id = id.Substring(0, id.IndexOf(' ', id.IndexOf(' ')) + 1);
-                ViewUserDetailsForm form = new ViewUserDetailsForm(int.Parse(id));
+                string selectedName = membersListBox.SelectedItem.ToString();
+                int id = memberMap.GetIdByName(selectedName);
+                ViewUserDetailsForm form = new ViewUserDetailsForm(id);
                 form.ShowDialog();
             }
             else
@@ -155,6 +167,22 @@ namespace OOAD_Project
         private void projectTitleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ChangeActiveProject();
+        }
+
+        private void removeMember_Click(object sender, EventArgs e)
+        {
+            if (membersListBox.SelectedIndex != -1)
+            {
+                string selectedName = membersListBox.SelectedItem.ToString();
+                int memberId = memberMap.GetIdByName(selectedName);
+
+                memberService.RemoveMemberFromProject(selectedProject, memberId, selectedName);
+                ReloadMembers();
+            }
+            else
+            {
+                MessageBox.Show("Please select a member to remove.");
+            }
         }
     }
 }

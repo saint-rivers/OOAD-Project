@@ -1,61 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OOAD_Project.Models;
+using OOAD_Project.Services;
+using OOAD_Project.Views;
+using System;
 using System.Windows.Forms;
 
 namespace OOAD_Project
 {
-    public partial class AddMemberForm : Form
+    public partial class AddMemberForm : PForm
     {
-        List<string> memberNames = new List<string>();
+        MemberMap memberMap;
+        private int projectId;
 
-        public AddMemberForm()
+        public AddMemberForm(int projectId, MemberService memberService)
         {
             InitializeComponent();
-            nonMembersListBox.Items.AddRange(getNonProjectMembers(3));
+            this.projectId = projectId;
+            this.memberService = memberService;
+            memberMap = new MemberMap();
         }
 
-        private string[] getNonProjectMembers(int projectId)
+        private void AddMemberForm_Load(object sender, EventArgs e)
         {
-            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
-            string _query = @"SELECT * FROM [dbo].[view_users_not_in_group](@project_id)";
+            Member[] _members = memberService.GetMembersNotInProjectAsArray(projectId);
+            memberMap.AddMemberRange(_members);
+            nonMembersListBox.Items.AddRange(memberMap.GetMembersAsNameArray());
+            nonMembersListBox.SelectedIndex = 0;
+        }
 
-            using (SqlConnection conn = new SqlConnection(_connStr))
+        private void addMemberBtn_Click(object sender, EventArgs e)
+        {
+            if (memberMap.IsEmpty())
             {
-                using (SqlCommand comm = new SqlCommand(_query, conn))
-                {
-                    conn.Open();
-                    comm.Parameters.AddWithValue("@project_id", projectId);
-                    int result = comm.ExecuteNonQuery();
-
-                    // result gives the -1 output.. but on insert its 1
-                    using (SqlDataReader reader = comm.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                int id = reader.GetInt32(0);
-                                string name = reader.GetString(1);
-                                //members.Add(id, name);
-                                name = "#" + id + " " + name;
-                                memberNames.Add(name);
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("No data found.");
-                        }
-                    }
-                }
+                return;
             }
-            return memberNames.ToArray();
+            string selectedMember = nonMembersListBox.SelectedItem.ToString();
+            int memberId = memberMap.GetIdByName(selectedMember);
+            memberService.AddNewProjectMember(projectId, memberId);
+            MessageBox.Show("Added new member.");
+            Close();
         }
     }
 }

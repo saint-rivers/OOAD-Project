@@ -42,7 +42,7 @@ namespace OOAD_Project
             this.addMemberBtn = new System.Windows.Forms.Button();
             this.projectUsersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.projectUsersTableAdapter = new OOAD_Project.ProjectManagementDataSetTableAdapters.ProjectUsersTableAdapter();
-            this.firstnameListBox = new System.Windows.Forms.ListBox();
+            this.membersListBox = new System.Windows.Forms.ListBox();
             this.viewMemberBtn = new System.Windows.Forms.Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.logoutBtn = new System.Windows.Forms.Button();
@@ -56,6 +56,7 @@ namespace OOAD_Project
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.removeMember = new System.Windows.Forms.Button();
             titleLabel = new System.Windows.Forms.Label();
             membersLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSet)).BeginInit();
@@ -68,29 +69,26 @@ namespace OOAD_Project
             // titleLabel
             // 
             titleLabel.AutoSize = true;
-            titleLabel.Location = new System.Drawing.Point(47, 84);
-            titleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            titleLabel.Location = new System.Drawing.Point(35, 68);
             titleLabel.Name = "titleLabel";
-            titleLabel.Size = new System.Drawing.Size(56, 17);
+            titleLabel.Size = new System.Drawing.Size(43, 13);
             titleLabel.TabIndex = 2;
             titleLabel.Text = "Project:";
             // 
             // membersLabel
             // 
             membersLabel.AutoSize = true;
-            membersLabel.Location = new System.Drawing.Point(1007, 238);
-            membersLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            membersLabel.Location = new System.Drawing.Point(755, 193);
             membersLabel.Name = "membersLabel";
-            membersLabel.Size = new System.Drawing.Size(70, 17);
+            membersLabel.Size = new System.Drawing.Size(53, 13);
             membersLabel.TabIndex = 6;
             membersLabel.Text = "Members:";
             // 
             // newTaskBtn
             // 
-            this.newTaskBtn.Location = new System.Drawing.Point(1011, 150);
-            this.newTaskBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.newTaskBtn.Location = new System.Drawing.Point(758, 122);
             this.newTaskBtn.Name = "newTaskBtn";
-            this.newTaskBtn.Size = new System.Drawing.Size(135, 66);
+            this.newTaskBtn.Size = new System.Drawing.Size(101, 54);
             this.newTaskBtn.TabIndex = 0;
             this.newTaskBtn.Text = "New Task";
             this.newTaskBtn.UseVisualStyleBackColor = true;
@@ -123,19 +121,17 @@ namespace OOAD_Project
             // 
             this.projectTitleComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectsBindingSource, "Title", true));
             this.projectTitleComboBox.FormattingEnabled = true;
-            this.projectTitleComboBox.Location = new System.Drawing.Point(216, 80);
-            this.projectTitleComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.projectTitleComboBox.Location = new System.Drawing.Point(162, 65);
             this.projectTitleComboBox.Name = "projectTitleComboBox";
-            this.projectTitleComboBox.Size = new System.Drawing.Size(773, 24);
+            this.projectTitleComboBox.Size = new System.Drawing.Size(581, 21);
             this.projectTitleComboBox.TabIndex = 3;
             this.projectTitleComboBox.SelectedIndexChanged += new System.EventHandler(this.projectTitleComboBox_SelectedIndexChanged);
             // 
             // newProjectBtn
             // 
-            this.newProjectBtn.Location = new System.Drawing.Point(1007, 80);
-            this.newProjectBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.newProjectBtn.Location = new System.Drawing.Point(758, 65);
             this.newProjectBtn.Name = "newProjectBtn";
-            this.newProjectBtn.Size = new System.Drawing.Size(135, 66);
+            this.newProjectBtn.Size = new System.Drawing.Size(101, 54);
             this.newProjectBtn.TabIndex = 4;
             this.newProjectBtn.Text = "New Project";
             this.newProjectBtn.UseVisualStyleBackColor = true;
@@ -143,10 +139,9 @@ namespace OOAD_Project
             // 
             // addMemberBtn
             // 
-            this.addMemberBtn.Location = new System.Drawing.Point(1010, 497);
-            this.addMemberBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.addMemberBtn.Location = new System.Drawing.Point(758, 404);
             this.addMemberBtn.Name = "addMemberBtn";
-            this.addMemberBtn.Size = new System.Drawing.Size(135, 66);
+            this.addMemberBtn.Size = new System.Drawing.Size(101, 54);
             this.addMemberBtn.TabIndex = 6;
             this.addMemberBtn.Text = "Add Member";
             this.addMemberBtn.UseVisualStyleBackColor = true;
@@ -161,23 +156,20 @@ namespace OOAD_Project
             // 
             this.projectUsersTableAdapter.ClearBeforeFill = true;
             // 
-            // firstnameListBox
+            // membersListBox
             // 
-            this.firstnameListBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.projectUsersBindingSource, "Firstname", true));
-            this.firstnameListBox.FormattingEnabled = true;
-            this.firstnameListBox.ItemHeight = 16;
-            this.firstnameListBox.Location = new System.Drawing.Point(1011, 258);
-            this.firstnameListBox.Margin = new System.Windows.Forms.Padding(4);
-            this.firstnameListBox.Name = "firstnameListBox";
-            this.firstnameListBox.Size = new System.Drawing.Size(134, 148);
-            this.firstnameListBox.TabIndex = 7;
+            this.membersListBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.projectUsersBindingSource, "Firstname", true));
+            this.membersListBox.FormattingEnabled = true;
+            this.membersListBox.Location = new System.Drawing.Point(758, 210);
+            this.membersListBox.Name = "membersListBox";
+            this.membersListBox.Size = new System.Drawing.Size(102, 121);
+            this.membersListBox.TabIndex = 7;
             // 
             // viewMemberBtn
             // 
-            this.viewMemberBtn.Location = new System.Drawing.Point(1010, 423);
-            this.viewMemberBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.viewMemberBtn.Location = new System.Drawing.Point(758, 344);
             this.viewMemberBtn.Name = "viewMemberBtn";
-            this.viewMemberBtn.Size = new System.Drawing.Size(135, 66);
+            this.viewMemberBtn.Size = new System.Drawing.Size(101, 54);
             this.viewMemberBtn.TabIndex = 8;
             this.viewMemberBtn.Text = "View Member";
             this.viewMemberBtn.UseVisualStyleBackColor = true;
@@ -187,19 +179,17 @@ namespace OOAD_Project
             // 
             this.welcomeLabel.AutoSize = true;
             this.welcomeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F);
-            this.welcomeLabel.Location = new System.Drawing.Point(44, 30);
-            this.welcomeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.welcomeLabel.Location = new System.Drawing.Point(33, 24);
             this.welcomeLabel.Name = "welcomeLabel";
-            this.welcomeLabel.Size = new System.Drawing.Size(93, 33);
+            this.welcomeLabel.Size = new System.Drawing.Size(79, 29);
             this.welcomeLabel.TabIndex = 9;
             this.welcomeLabel.Text = "label1";
             // 
             // logoutBtn
             // 
-            this.logoutBtn.Location = new System.Drawing.Point(192, 497);
-            this.logoutBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.logoutBtn.Location = new System.Drawing.Point(144, 404);
             this.logoutBtn.Name = "logoutBtn";
-            this.logoutBtn.Size = new System.Drawing.Size(135, 66);
+            this.logoutBtn.Size = new System.Drawing.Size(101, 54);
             this.logoutBtn.TabIndex = 10;
             this.logoutBtn.Text = "Logout";
             this.logoutBtn.UseVisualStyleBackColor = true;
@@ -207,10 +197,9 @@ namespace OOAD_Project
             // 
             // settingsBtn
             // 
-            this.settingsBtn.Location = new System.Drawing.Point(49, 497);
-            this.settingsBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.settingsBtn.Location = new System.Drawing.Point(37, 404);
             this.settingsBtn.Name = "settingsBtn";
-            this.settingsBtn.Size = new System.Drawing.Size(135, 66);
+            this.settingsBtn.Size = new System.Drawing.Size(101, 54);
             this.settingsBtn.TabIndex = 11;
             this.settingsBtn.Text = "Settings";
             this.settingsBtn.UseVisualStyleBackColor = true;
@@ -219,11 +208,10 @@ namespace OOAD_Project
             // projectIdTextBox
             // 
             this.projectIdTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectsBindingSource, "Id", true));
-            this.projectIdTextBox.Location = new System.Drawing.Point(139, 80);
-            this.projectIdTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.projectIdTextBox.Location = new System.Drawing.Point(104, 65);
             this.projectIdTextBox.Name = "projectIdTextBox";
             this.projectIdTextBox.ReadOnly = true;
-            this.projectIdTextBox.Size = new System.Drawing.Size(68, 22);
+            this.projectIdTextBox.Size = new System.Drawing.Size(52, 20);
             this.projectIdTextBox.TabIndex = 5;
             // 
             // tasksBindingSource
@@ -246,11 +234,12 @@ namespace OOAD_Project
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn6});
             this.tasksDataGridView.DataSource = this.tasksBindingSource;
-            this.tasksDataGridView.Location = new System.Drawing.Point(50, 135);
+            this.tasksDataGridView.Location = new System.Drawing.Point(38, 110);
+            this.tasksDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.tasksDataGridView.Name = "tasksDataGridView";
             this.tasksDataGridView.RowHeadersWidth = 51;
             this.tasksDataGridView.RowTemplate.Height = 24;
-            this.tasksDataGridView.Size = new System.Drawing.Size(939, 355);
+            this.tasksDataGridView.Size = new System.Drawing.Size(704, 288);
             this.tasksDataGridView.TabIndex = 12;
             // 
             // dataGridViewCheckBoxColumn1
@@ -297,25 +286,35 @@ namespace OOAD_Project
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 125;
             // 
+            // removeMember
+            // 
+            this.removeMember.Location = new System.Drawing.Point(642, 403);
+            this.removeMember.Name = "removeMember";
+            this.removeMember.Size = new System.Drawing.Size(101, 54);
+            this.removeMember.TabIndex = 13;
+            this.removeMember.Text = "Remove Member";
+            this.removeMember.UseVisualStyleBackColor = true;
+            this.removeMember.Click += new System.EventHandler(this.removeMember_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1188, 598);
+            this.ClientSize = new System.Drawing.Size(891, 486);
+            this.Controls.Add(this.removeMember);
             this.Controls.Add(this.tasksDataGridView);
             this.Controls.Add(this.settingsBtn);
             this.Controls.Add(this.logoutBtn);
             this.Controls.Add(this.welcomeLabel);
             this.Controls.Add(this.viewMemberBtn);
             this.Controls.Add(membersLabel);
-            this.Controls.Add(this.firstnameListBox);
+            this.Controls.Add(this.membersListBox);
             this.Controls.Add(this.addMemberBtn);
             this.Controls.Add(this.projectIdTextBox);
             this.Controls.Add(this.newProjectBtn);
             this.Controls.Add(titleLabel);
             this.Controls.Add(this.projectTitleComboBox);
             this.Controls.Add(this.newTaskBtn);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Project Management";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -341,7 +340,7 @@ namespace OOAD_Project
         private System.Windows.Forms.Button addMemberBtn;
         private System.Windows.Forms.BindingSource projectUsersBindingSource;
         private ProjectManagementDataSetTableAdapters.ProjectUsersTableAdapter projectUsersTableAdapter;
-        private System.Windows.Forms.ListBox firstnameListBox;
+        private System.Windows.Forms.ListBox membersListBox;
         private System.Windows.Forms.Button viewMemberBtn;
         private System.Windows.Forms.Label welcomeLabel;
         private System.Windows.Forms.Button logoutBtn;
@@ -355,6 +354,7 @@ namespace OOAD_Project
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.Button removeMember;
     }
 }
 

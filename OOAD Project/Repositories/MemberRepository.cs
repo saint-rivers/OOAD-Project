@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OOAD_Project.Repositories
 {
@@ -19,7 +20,7 @@ namespace OOAD_Project.Repositories
             throw new NullReferenceException("Unable to fetch user.");
         }
 
-        public void InsertProjectMember(int ownerId, int projectId)
+        public bool InsertProjectMember(int projectId, int memberId)
         {
             string _connStr = GetConnectionString();
             string _memberInsert = "INSERT INTO ProjectMembers (UserId,ProjectId) " +
@@ -33,7 +34,7 @@ namespace OOAD_Project.Repositories
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
                     comm.CommandText = _memberInsert;
-                    comm.Parameters.AddWithValue("@user_id", ownerId);
+                    comm.Parameters.AddWithValue("@user_id", memberId);
                     comm.Parameters.AddWithValue("@project_id", projectId);
                     try
                     {
@@ -42,10 +43,12 @@ namespace OOAD_Project.Repositories
                     catch (SqlException ex)
                     {
                         Console.WriteLine(ex);
+                        return false;
                     }
                 }
 
             }
+            return true;
         }
 
         // not tested !!!
@@ -81,7 +84,24 @@ namespace OOAD_Project.Repositories
             }
         }
 
-        public string[] GetProjectMembers(int projectId)
+        public void DeleteUserFromProjectMembers(int projectId, int memberId)
+        {
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"DELETE FROM ProjectMembers WHERE UserId=@user_id AND ProjectId=@project_id";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    comm.Parameters.AddWithValue("@user_id", memberId);
+                    comm.Parameters.AddWithValue("@project_id", projectId);
+                    comm.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public string[] GetMembersInProjectAsStringArray(int projectId)
         {
             List<string> _memberNames = new List<string>();
 
@@ -118,13 +138,90 @@ namespace OOAD_Project.Repositories
                 }
             }
             return _memberNames.ToArray();
+        }   
+        
+        public Member[] GetMembersInProjectAsArray(int projectId)
+        {
+            List<Member> _memberList = new List<Member>();  
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"SELECT Id,Firstname,Lastname,Email FROM [dbo].[view_members_in_group](@project_id)";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    comm.Parameters.AddWithValue("@project_id", projectId);
+                    int result = comm.ExecuteNonQuery();
+
+                    // result gives the -1 output.. but on insert its 1
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Member member = new Member();
+                                member.id = reader.GetInt32(0);
+                                member.firstname = reader.GetString(1);
+                                member.lastname = reader.GetString(2);
+                                member.email = reader.GetString(3);
+
+                                _memberList.Add(member);                                
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No data found.");
+                        }
+                    }
+                }
+            }
+            return _memberList.ToArray();
         }
 
+        public Member[] GetMembersNotInProjectAsArray(int projectId)
+        {
+            List<Member> _memberList = new List<Member>();
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"SELECT DISTINCT(Id),Firstname,Lastname,Email FROM [dbo].[view_users_not_in_group](@project_id)";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    comm.Parameters.AddWithValue("@project_id", projectId);
+                    int result = comm.ExecuteNonQuery();
+
+                    // result gives the -1 output.. but on insert its 1
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Member member = new Member();
+                                member.id = reader.GetInt32(0);
+                                member.firstname = reader.GetString(1);
+                                member.lastname = reader.GetString(2);
+                                member.email = reader.GetString(3);
+
+                                _memberList.Add(member);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No data found.");
+                        }
+                    }
+                }
+            }
+            return _memberList.ToArray();
+        }
 
         public bool ValidateLogin(string email, string secret)
-        {
-            email = "joy@gmail.com";
-            secret = "asd";
+        {           
             string _connStr = GetConnectionString();
             string _query = @"SELECT Count(Id) as count, firstname, lastname, Id
                             FROM ProjectUsers 

@@ -16,30 +16,44 @@ namespace OOAD_Project
 {
     public partial class TaskForm : PForm
     {
-        int projectId;
+        private int projectId;
+        private Member[] members;
+        MemberMap memberMap;
 
-        private TaskService taskService;
 
-        public TaskForm(string projectId, TaskService taskService)
+        public TaskForm(string projectId, TaskService taskService, MemberService memberService)
         {
             InitializeComponent();
             this.projectId = int.Parse(projectId);
             this.taskService = taskService;
-
+            this.memberService = new MemberService();
+            memberMap = new MemberMap();
         }
 
         private void tasksBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            this.Validate();
-            this.tasksBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.projectManagementDataSet);
+            Validate();
+            tasksBindingSource.EndEdit();
+            tableAdapterManager.UpdateAll(projectManagementDataSet);
 
         }
 
         private void NewTaskForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'projectManagementDataSet.Tasks' table. You can move, or remove it, as needed.
-            this.tasksTableAdapter.Fill(this.projectManagementDataSet.Tasks);
+
+            // get all members
+            members = memberService.GetMembersInProjectAsArray(projectId);
+            memberMap.AddMemberRange(members);
+
+            // add members to combo box
+            string[] names = memberMap.GetMembersAsNameArray();
+            if (names.Length == 0)
+            {
+                Console.WriteLine("No members found");
+                return;
+            }
+            assignedToComboBox.Items.AddRange(names);
+            assignedToComboBox.SelectedIndex = 0;
 
         }
 
@@ -51,8 +65,13 @@ namespace OOAD_Project
         private void addTaskBtn_Click(object sender, EventArgs e)
         {
             // get member id for assignedTo
-
-            int _assignedTo = 3;
+            if (memberMap.IsEmpty())
+            {
+                Console.WriteLine("No members found");                
+                return;
+            }
+            string selectedName = assignedToComboBox.SelectedItem.ToString();
+            int _assignedTo = memberMap.GetIdByName(selectedName);
 
             ProjectTask task = new ProjectTask(
                 projectId, titleTextBox.Text, descriptionRichTextBox.Text, _assignedTo, deadlineDateTimePicker.Value

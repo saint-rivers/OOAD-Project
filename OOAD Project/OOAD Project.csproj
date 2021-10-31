@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\MemberMap.cs" />
     <Compile Include="Models\ProjectTask.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\MemberRepository.cs" />

@@ -25,7 +25,7 @@ namespace OOAD_Project.Services
 
             if (_projectId != -1)
             {
-                memberController.InsertProjectMember(ownerId, _projectId);
+                memberController.InsertProjectMember(_projectId, ownerId);
             }
         }
 
