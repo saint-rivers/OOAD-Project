@@ -77,7 +77,14 @@ namespace OOAD_Project.Services
             {
                 return;
             }
-            
+
         }
+
+        public bool UpdateMemberCredentials(int memberId, Credentials newInfo)
+        {
+            return memberRepository.UpdateMemberCredentials(memberId, newInfo);
+        }
+
+
     }
 }

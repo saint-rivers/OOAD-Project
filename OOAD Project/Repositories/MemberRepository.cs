@@ -20,6 +20,44 @@ namespace OOAD_Project.Repositories
             throw new NullReferenceException("Unable to fetch user.");
         }
 
+        //
+
+        public bool UpdateMemberCredentials(int memberId, Credentials newInfo)
+        {
+            string _connStr = GetConnectionString();
+            string _memberInsert = $"UPDATE ProjectUsers " +
+                $"SET Firstname = @firstname, Lastname = @lastname, Email = @email, UserSecret = @secret " +
+                $"WHERE Id=@memberId;";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = _memberInsert;
+                    comm.Parameters.AddWithValue("@firstname", newInfo.firstname);
+                    comm.Parameters.AddWithValue("@lastname", newInfo.lastname);
+                    comm.Parameters.AddWithValue("@email", newInfo.email);
+                    comm.Parameters.AddWithValue("@secret", newInfo.secret);
+                    comm.Parameters.AddWithValue("@memberId", memberId);
+                    try
+                    {
+                        comm.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex);
+                        return false;
+                    }
+                }
+
+            }
+            return true;
+        }
+
+
         public bool InsertProjectMember(int projectId, int memberId)
         {
             string _connStr = GetConnectionString();

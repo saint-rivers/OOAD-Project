@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\MemberMap.cs" />
     <Compile Include="Models\ProjectTask.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -88,6 +89,12 @@
     <Compile Include="Views\TaskForm.Designer.cs">
       <DependentUpon>TaskForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UpdateUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UpdateUserForm.Designer.cs">
+      <DependentUpon>UpdateUserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewUserDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\TaskForm.resx">
       <DependentUpon>TaskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UpdateUserForm.resx">
+      <DependentUpon>UpdateUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ViewUserDetailsForm.resx">
       <DependentUpon>ViewUserDetailsForm.cs</DependentUpon>

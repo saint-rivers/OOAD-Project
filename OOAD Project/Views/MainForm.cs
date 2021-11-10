@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using OOAD_Project.Models;
 using OOAD_Project.Services;
+using OOAD_Project.Views;
 
 namespace OOAD_Project
 {
@@ -169,7 +170,13 @@ namespace OOAD_Project
 
         private void settingsBtn_Click(object sender, EventArgs e)
         {
+            UpdateUserForm form = new UpdateUserForm(memberService);
+            form.ShowDialog();
 
+            if (form.updatedSuccessfully)
+            {
+                ReloadMembers();
+            }
         }
 
         private void projectTitleComboBox_SelectedIndexChanged(object sender, EventArgs e)
