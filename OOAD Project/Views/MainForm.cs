@@ -39,14 +39,16 @@ namespace OOAD_Project
 
             if (loginForm.DialogResult == DialogResult.OK)
             {
+                // get data from login form
+                currentUser = loginForm.GetLoggedInUser();
+                projects = projectService.GetProjectsOfUser(currentUser.id);
+
+
                 ClearMainForm();
 
                 // say hello
-                welcomeLabel.Text = "Hello, " + loginForm.currentUser.firstname;
+                welcomeLabel.Text = "Hello, " + currentUser.firstname;
 
-                // get data from login form
-                currentUser = loginForm.currentUser;
-                projects = loginForm.projects;
 
                 projectTitleComboBox.Items.Clear();
 
@@ -56,6 +58,7 @@ namespace OOAD_Project
                     memberMap = new MemberMap(_members);
                     membersListBox.Items.AddRange(memberMap.GetMembersAsNameArray());
 
+                   
                     LoadProjectsToForm(loginForm.projects);
                     ChangeActiveProject();
                 }
@@ -78,8 +81,10 @@ namespace OOAD_Project
             {
                 return;
             }
-            int _projectId = projectNameId[projectTitleComboBox.SelectedItem.ToString()];
-            projectIdTextBox.Text = _projectId.ToString();
+            selectedProject = projectNameId[projectTitleComboBox.SelectedItem.ToString()];
+            projectIdTextBox.Text = selectedProject.ToString();
+
+            // TODO: changing this reloads the tasks table 
         }
 
 
@@ -115,6 +120,9 @@ namespace OOAD_Project
 
         private void LoadTaskTable()
         {
+            //projectManagementDataSet.Tables[0].DefaultView.RowFilter = $"ProjectId = '{selectedProject}'";
+            //DataTable dt = (projectManagementDataSet.Tables[0].DefaultView).ToTable() ;
+            projectManagementDataSet.Tasks.DefaultView.RowFilter = $"ProjectId = '15'";
             tasksTableAdapter.Fill(projectManagementDataSet.Tasks);
         }
 
@@ -182,6 +190,29 @@ namespace OOAD_Project
             else
             {
                 MessageBox.Show("Please select a member to remove.");
+            }
+        }
+
+        private void deleteProjectBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show(
+                $"Are you sure you want to delete this project?",
+                "Delete Project",
+                MessageBoxButtons.YesNo
+                );
+            if (dialogResult == DialogResult.Yes)
+            {
+                bool result = projectService.DeleteProject(selectedProject);
+                if (result)
+                {
+                    MessageBox.Show("Successfully deleted project.");
+                    projects = projectService.GetProjectsOfUser(currentUser.id);
+                    LoadProjectsToForm(projects);
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
             }
         }
     }

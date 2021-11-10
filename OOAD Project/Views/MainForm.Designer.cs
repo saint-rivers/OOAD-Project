@@ -57,6 +57,7 @@ namespace OOAD_Project
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.removeMember = new System.Windows.Forms.Button();
+            this.deleteProjectBtn = new System.Windows.Forms.Button();
             titleLabel = new System.Windows.Forms.Label();
             membersLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSet)).BeginInit();
@@ -78,7 +79,7 @@ namespace OOAD_Project
             // membersLabel
             // 
             membersLabel.AutoSize = true;
-            membersLabel.Location = new System.Drawing.Point(755, 193);
+            membersLabel.Location = new System.Drawing.Point(755, 246);
             membersLabel.Name = "membersLabel";
             membersLabel.Size = new System.Drawing.Size(53, 13);
             membersLabel.TabIndex = 6;
@@ -160,9 +161,9 @@ namespace OOAD_Project
             // 
             this.membersListBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.projectUsersBindingSource, "Firstname", true));
             this.membersListBox.FormattingEnabled = true;
-            this.membersListBox.Location = new System.Drawing.Point(758, 210);
+            this.membersListBox.Location = new System.Drawing.Point(758, 262);
             this.membersListBox.Name = "membersListBox";
-            this.membersListBox.Size = new System.Drawing.Size(102, 121);
+            this.membersListBox.Size = new System.Drawing.Size(102, 69);
             this.membersListBox.TabIndex = 7;
             // 
             // viewMemberBtn
@@ -296,11 +297,22 @@ namespace OOAD_Project
             this.removeMember.UseVisualStyleBackColor = true;
             this.removeMember.Click += new System.EventHandler(this.removeMember_Click);
             // 
+            // deleteProjectBtn
+            // 
+            this.deleteProjectBtn.Location = new System.Drawing.Point(758, 182);
+            this.deleteProjectBtn.Name = "deleteProjectBtn";
+            this.deleteProjectBtn.Size = new System.Drawing.Size(101, 54);
+            this.deleteProjectBtn.TabIndex = 14;
+            this.deleteProjectBtn.Text = "Delete Project";
+            this.deleteProjectBtn.UseVisualStyleBackColor = true;
+            this.deleteProjectBtn.Click += new System.EventHandler(this.deleteProjectBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 486);
+            this.Controls.Add(this.deleteProjectBtn);
             this.Controls.Add(this.removeMember);
             this.Controls.Add(this.tasksDataGridView);
             this.Controls.Add(this.settingsBtn);
@@ -355,6 +367,7 @@ namespace OOAD_Project
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.Button removeMember;
+        private System.Windows.Forms.Button deleteProjectBtn;
     }
 }
 

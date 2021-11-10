@@ -41,6 +41,11 @@ namespace OOAD_Project
             initLogin();
         }
 
+        public Member GetLoggedInUser()
+        {
+            return currentUser;
+        }
+
         private void initLogin()
         {
             isValidLogin = memberService.ValidateLogin(emailLoginTextBox.Text, passwordTextBox.Text);

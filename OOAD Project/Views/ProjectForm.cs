@@ -54,7 +54,7 @@ namespace OOAD_Project
                 DateTime.Now.Date
             );
 
-            projectService.CreateProjectAndAddUsersToProject(member, ownerId );
+            projectId = projectService.CreateProjectAndAddUsersToProject(member, ownerId );
             MessageBox.Show("Project created.");
             Close();
         }

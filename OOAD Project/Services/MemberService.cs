@@ -17,49 +17,49 @@ namespace OOAD_Project.Services
 
         public bool AddNewProjectMember(int projectId, int memberId)
         {
-            return memberController.InsertProjectMember(projectId, memberId);
+            return memberRepository.InsertProjectMember(projectId, memberId);
         }
 
         public Member[] GetMembersAsArray(int projectId)
         {
-            return memberController.GetMembersInProjectAsArray(projectId);
+            return memberRepository.GetMembersInProjectAsArray(projectId);
         }
 
         public Member[] GetMembersNotInProjectAsArray(int projectId)
         {
-            return memberController.GetMembersNotInProjectAsArray(projectId);
+            return memberRepository.GetMembersNotInProjectAsArray(projectId);
         }
 
         public Member[] GetMembersInProjectAsArray(int projectId)
         {
-            return memberController.GetMembersInProjectAsArray(projectId);
+            return memberRepository.GetMembersInProjectAsArray(projectId);
         }
 
         public bool ValidateLogin(string email, string secret)
         {
             email = "joy@gmail.com";
             secret = "asd";
-            return memberController.ValidateLogin(email, secret);
+            return memberRepository.ValidateLogin(email, secret);
         }
 
         public int GetCurrentUserId()
         {
-            return memberController.currentUser.id;
+            return memberRepository.currentUser.id;
         }
 
         public Member GetCurrentUser()
         {
-            return memberController.currentUser;
+            return memberRepository.currentUser;
         }
 
         public Member GetValidatedUser()
         {
-            return memberController.GetValidatedUser();
+            return memberRepository.GetValidatedUser();
         }
 
         public string[] GetProjectMembers(int projectId)
         {
-            return memberController.GetMembersInProjectAsStringArray(projectId);
+            return memberRepository.GetMembersInProjectAsStringArray(projectId);
         }
 
         public void RemoveMemberFromProject(int selectedProject, int memberId, string memberName)
@@ -71,7 +71,7 @@ namespace OOAD_Project.Services
                 );
             if (dialogResult == DialogResult.Yes)
             {
-                memberController.DeleteUserFromProjectMembers(selectedProject, memberId);
+                memberRepository.DeleteUserFromProjectMembers(selectedProject, memberId);
             }
             else if (dialogResult == DialogResult.No)
             {

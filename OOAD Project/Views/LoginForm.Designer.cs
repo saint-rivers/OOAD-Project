@@ -95,7 +95,7 @@ namespace OOAD_Project
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 269);
+            this.ClientSize = new System.Drawing.Size(352, 278);
             this.Controls.Add(this.registrationBtn);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.userSecretTextBox);

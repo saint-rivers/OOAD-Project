@@ -12,6 +12,32 @@ namespace OOAD_Project.Repositories
 {
     public class ProjectRepository : BaseRepository
     {
+        public bool DeleteProject(int projectId)
+        {
+            string _connStr = GetConnectionString();
+            string _query = @"DELETE FROM Projects WHERE Id=@project_id";
+
+            int result;
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    comm.Parameters.AddWithValue("@project_id", projectId);
+                    try
+                    {
+                        result = comm.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                        throw;
+                    }
+
+                }
+            }
+            return result > 0;
+        }
 
         public List<Project> GetProjectsOfUser(int user_id)
         {
@@ -19,7 +45,7 @@ namespace OOAD_Project.Repositories
 
             string _connStr = GetConnectionString();
             string _query = @"SELECT p.Id, p.OwnerId, p.Title, p.Description, p.DateCreated
-                            FROM ProjectMembers m inner join Projects p on p.Id = m.ProjectId where UserId=@user_id";
+                            FROM ProjectMembers m inner join Projects p on p.Id = m.ProjectId where p.OwnerId=@user_id";
 
             using (SqlConnection conn = new SqlConnection(_connStr))
             {
@@ -57,7 +83,7 @@ namespace OOAD_Project.Repositories
             return _projects;
         }
 
-        public int InsertProject(Project project)
+        public int InsertProject(int ownerId, Project project)
         {
             string _connStr = GetConnectionString();
             string _projectInsert = "INSERT INTO Projects (OwnerId,Title,Description,DateCreated) " +
@@ -72,7 +98,7 @@ namespace OOAD_Project.Repositories
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
                     comm.CommandText = _projectInsert;
-                    comm.Parameters.AddWithValue("@owner_id", project.id);
+                    comm.Parameters.AddWithValue("@owner_id", ownerId);
                     comm.Parameters.AddWithValue("@title", project.title);
                     comm.Parameters.AddWithValue("@description", project.description);
                     comm.Parameters.AddWithValue("@date_created", DateTime.Now.Date);
