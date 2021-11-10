@@ -19,6 +19,11 @@ namespace OOAD_Project.Services
             taskRepository.InsertNewTask(task);
         }
 
-        
+        public List<ProjectTask> FetchTasksOfProject(int projectId)
+        {
+            return taskRepository.FetchTasksOfProject(projectId);
+        }
+
+
     }
 }

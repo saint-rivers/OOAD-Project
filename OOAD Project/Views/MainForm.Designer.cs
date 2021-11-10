@@ -50,21 +50,31 @@ namespace OOAD_Project
             this.projectIdTextBox = new System.Windows.Forms.TextBox();
             this.tasksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tasksTableAdapter = new OOAD_Project.ProjectManagementDataSetTableAdapters.TasksTableAdapter();
-            this.tasksDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.removeMember = new System.Windows.Forms.Button();
             this.deleteProjectBtn = new System.Windows.Forms.Button();
+            this.projectManagementDataSetViews = new OOAD_Project.ProjectManagementDataSetViews();
+            this.taskViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.taskViewTableAdapter = new OOAD_Project.ProjectManagementDataSetViewsTableAdapters.TaskViewTableAdapter();
+            this.tableAdapterManager1 = new OOAD_Project.ProjectManagementDataSetViewsTableAdapters.TableAdapterManager();
+            this.taskViewDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             titleLabel = new System.Windows.Forms.Label();
             membersLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectUsersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tasksBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tasksDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSetViews)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskViewBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskViewDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // titleLabel
@@ -140,7 +150,7 @@ namespace OOAD_Project
             // 
             // addMemberBtn
             // 
-            this.addMemberBtn.Location = new System.Drawing.Point(758, 404);
+            this.addMemberBtn.Location = new System.Drawing.Point(758, 411);
             this.addMemberBtn.Name = "addMemberBtn";
             this.addMemberBtn.Size = new System.Drawing.Size(101, 54);
             this.addMemberBtn.TabIndex = 6;
@@ -163,12 +173,12 @@ namespace OOAD_Project
             this.membersListBox.FormattingEnabled = true;
             this.membersListBox.Location = new System.Drawing.Point(758, 262);
             this.membersListBox.Name = "membersListBox";
-            this.membersListBox.Size = new System.Drawing.Size(102, 69);
+            this.membersListBox.Size = new System.Drawing.Size(102, 82);
             this.membersListBox.TabIndex = 7;
             // 
             // viewMemberBtn
             // 
-            this.viewMemberBtn.Location = new System.Drawing.Point(758, 344);
+            this.viewMemberBtn.Location = new System.Drawing.Point(758, 351);
             this.viewMemberBtn.Name = "viewMemberBtn";
             this.viewMemberBtn.Size = new System.Drawing.Size(101, 54);
             this.viewMemberBtn.TabIndex = 8;
@@ -188,7 +198,7 @@ namespace OOAD_Project
             // 
             // logoutBtn
             // 
-            this.logoutBtn.Location = new System.Drawing.Point(144, 404);
+            this.logoutBtn.Location = new System.Drawing.Point(144, 411);
             this.logoutBtn.Name = "logoutBtn";
             this.logoutBtn.Size = new System.Drawing.Size(101, 54);
             this.logoutBtn.TabIndex = 10;
@@ -198,7 +208,7 @@ namespace OOAD_Project
             // 
             // settingsBtn
             // 
-            this.settingsBtn.Location = new System.Drawing.Point(37, 404);
+            this.settingsBtn.Location = new System.Drawing.Point(37, 411);
             this.settingsBtn.Name = "settingsBtn";
             this.settingsBtn.Size = new System.Drawing.Size(101, 54);
             this.settingsBtn.TabIndex = 11;
@@ -224,72 +234,9 @@ namespace OOAD_Project
             // 
             this.tasksTableAdapter.ClearBeforeFill = true;
             // 
-            // tasksDataGridView
-            // 
-            this.tasksDataGridView.AutoGenerateColumns = false;
-            this.tasksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tasksDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewCheckBoxColumn1,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn6});
-            this.tasksDataGridView.DataSource = this.tasksBindingSource;
-            this.tasksDataGridView.Location = new System.Drawing.Point(38, 110);
-            this.tasksDataGridView.Margin = new System.Windows.Forms.Padding(2);
-            this.tasksDataGridView.Name = "tasksDataGridView";
-            this.tasksDataGridView.RowHeadersWidth = 51;
-            this.tasksDataGridView.RowTemplate.Height = 24;
-            this.tasksDataGridView.Size = new System.Drawing.Size(704, 288);
-            this.tasksDataGridView.TabIndex = 12;
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "IsCompleted";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "IsCompleted";
-            this.dataGridViewCheckBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Title";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Title";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Description";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "AssignedTo";
-            this.dataGridViewTextBoxColumn3.HeaderText = "AssignedTo";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Deadline";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Deadline";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 125;
-            // 
             // removeMember
             // 
-            this.removeMember.Location = new System.Drawing.Point(642, 403);
+            this.removeMember.Location = new System.Drawing.Point(642, 410);
             this.removeMember.Name = "removeMember";
             this.removeMember.Size = new System.Drawing.Size(101, 54);
             this.removeMember.TabIndex = 13;
@@ -307,14 +254,109 @@ namespace OOAD_Project
             this.deleteProjectBtn.UseVisualStyleBackColor = true;
             this.deleteProjectBtn.Click += new System.EventHandler(this.deleteProjectBtn_Click);
             // 
+            // projectManagementDataSetViews
+            // 
+            this.projectManagementDataSetViews.DataSetName = "ProjectManagementDataSetViews";
+            this.projectManagementDataSetViews.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // taskViewBindingSource
+            // 
+            this.taskViewBindingSource.DataMember = "TaskView";
+            this.taskViewBindingSource.DataSource = this.projectManagementDataSetViews;
+            // 
+            // taskViewTableAdapter
+            // 
+            this.taskViewTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager1
+            // 
+            this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager1.Connection = null;
+            this.tableAdapterManager1.UpdateOrder = OOAD_Project.ProjectManagementDataSetViewsTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // taskViewDataGridView
+            // 
+            this.taskViewDataGridView.AutoGenerateColumns = false;
+            this.taskViewDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.taskViewDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8});
+            this.taskViewDataGridView.DataSource = this.taskViewBindingSource;
+            this.taskViewDataGridView.Location = new System.Drawing.Point(38, 92);
+            this.taskViewDataGridView.Name = "taskViewDataGridView";
+            this.taskViewDataGridView.Size = new System.Drawing.Size(705, 302);
+            this.taskViewDataGridView.TabIndex = 14;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "ProjectId";
+            this.dataGridViewTextBoxColumn2.HeaderText = "ProjectId";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Title";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Title";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Description";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Deadline";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Deadline";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "TimeCreated";
+            this.dataGridViewTextBoxColumn6.HeaderText = "TimeCreated";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "IsCompleted";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "IsCompleted";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "AssignedTo";
+            this.dataGridViewTextBoxColumn7.HeaderText = "AssignedTo";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Email";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Email";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 486);
+            this.Controls.Add(this.taskViewDataGridView);
             this.Controls.Add(this.deleteProjectBtn);
             this.Controls.Add(this.removeMember);
-            this.Controls.Add(this.tasksDataGridView);
             this.Controls.Add(this.settingsBtn);
             this.Controls.Add(this.logoutBtn);
             this.Controls.Add(this.welcomeLabel);
@@ -334,7 +376,9 @@ namespace OOAD_Project
             ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectUsersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tasksBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tasksDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectManagementDataSetViews)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskViewBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskViewDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,14 +404,22 @@ namespace OOAD_Project
         private System.Windows.Forms.TextBox projectIdTextBox;
         private System.Windows.Forms.BindingSource tasksBindingSource;
         private ProjectManagementDataSetTableAdapters.TasksTableAdapter tasksTableAdapter;
-        private System.Windows.Forms.DataGridView tasksDataGridView;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.Button removeMember;
         private System.Windows.Forms.Button deleteProjectBtn;
+        private ProjectManagementDataSetViews projectManagementDataSetViews;
+        private System.Windows.Forms.BindingSource taskViewBindingSource;
+        private ProjectManagementDataSetViewsTableAdapters.TaskViewTableAdapter taskViewTableAdapter;
+        private ProjectManagementDataSetViewsTableAdapters.TableAdapterManager tableAdapterManager1;
+        private System.Windows.Forms.DataGridView taskViewDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
     }
 }
 

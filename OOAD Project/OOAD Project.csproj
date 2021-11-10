@@ -49,6 +49,11 @@
     <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\MemberMap.cs" />
     <Compile Include="Models\ProjectTask.cs" />
+    <Compile Include="ProjectManagementDataSetViews.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectManagementDataSetViews.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\MemberRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
@@ -161,6 +166,17 @@
     </None>
     <None Include="ProjectManagementDataSet.xss">
       <DependentUpon>ProjectManagementDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ProjectManagementDataSetViews.xsc">
+      <DependentUpon>ProjectManagementDataSetViews.xsd</DependentUpon>
+    </None>
+    <None Include="ProjectManagementDataSetViews.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProjectManagementDataSetViews.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ProjectManagementDataSetViews.xss">
+      <DependentUpon>ProjectManagementDataSetViews.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

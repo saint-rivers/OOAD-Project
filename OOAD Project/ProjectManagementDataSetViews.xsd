@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ProjectManagementDataSetViews" targetNamespace="http://tempuri.org/ProjectManagementDataSetViews.xsd" xmlns:mstns="http://tempuri.org/ProjectManagementDataSetViews.xsd" xmlns="http://tempuri.org/ProjectManagementDataSetViews.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ProjectManagementConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ProjectManagementConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.OOAD_Project.Properties.Settings.GlobalReference.Default.ProjectManagementConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TaskViewTableAdapter" GeneratorDataComponentClassName="TaskViewTableAdapter" Name="TaskView" UserDataComponentName="TaskViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ProjectManagementConnectionString (Settings)" DbObjectName="ProjectManagement.dbo.TaskView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Id, ProjectId, Title, Description, Deadline, TimeCreated, IsCompleted, AssignedTo, Email FROM dbo.TaskView</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="ProjectId" DataSetColumn="ProjectId" />
+              <Mapping SourceColumn="Title" DataSetColumn="Title" />
+              <Mapping SourceColumn="Description" DataSetColumn="Description" />
+              <Mapping SourceColumn="Deadline" DataSetColumn="Deadline" />
+              <Mapping SourceColumn="TimeCreated" DataSetColumn="TimeCreated" />
+              <Mapping SourceColumn="IsCompleted" DataSetColumn="IsCompleted" />
+              <Mapping SourceColumn="AssignedTo" DataSetColumn="AssignedTo" />
+              <Mapping SourceColumn="Email" DataSetColumn="Email" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ProjectManagementDataSetViews" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="ProjectManagementDataSetViews" msprop:Generator_DataSetName="ProjectManagementDataSetViews">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="TaskView" msprop:Generator_RowEvHandlerName="TaskViewRowChangeEventHandler" msprop:Generator_RowDeletedName="TaskViewRowDeleted" msprop:Generator_RowDeletingName="TaskViewRowDeleting" msprop:Generator_RowEvArgName="TaskViewRowChangeEvent" msprop:Generator_TablePropName="TaskView" msprop:Generator_RowChangedName="TaskViewRowChanged" msprop:Generator_RowChangingName="TaskViewRowChanging" msprop:Generator_TableClassName="TaskViewDataTable" msprop:Generator_RowClassName="TaskViewRow" msprop:Generator_TableVarName="tableTaskView" msprop:Generator_UserTableName="TaskView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="ProjectId" msprop:Generator_ColumnPropNameInRow="ProjectId" msprop:Generator_ColumnPropNameInTable="ProjectIdColumn" msprop:Generator_ColumnVarNameInTable="columnProjectId" msprop:Generator_UserColumnName="ProjectId" type="xs:int" />
+              <xs:element name="Title" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ColumnPropNameInTable="TitleColumn" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_UserColumnName="Title">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Description" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_UserColumnName="Description" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Deadline" msprop:Generator_ColumnPropNameInRow="Deadline" msprop:Generator_ColumnPropNameInTable="DeadlineColumn" msprop:Generator_ColumnVarNameInTable="columnDeadline" msprop:Generator_UserColumnName="Deadline" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TimeCreated" msprop:Generator_ColumnPropNameInRow="TimeCreated" msprop:Generator_ColumnPropNameInTable="TimeCreatedColumn" msprop:Generator_ColumnVarNameInTable="columnTimeCreated" msprop:Generator_UserColumnName="TimeCreated" type="xs:dateTime" />
+              <xs:element name="IsCompleted" msprop:Generator_ColumnPropNameInRow="IsCompleted" msprop:Generator_ColumnPropNameInTable="IsCompletedColumn" msprop:Generator_ColumnVarNameInTable="columnIsCompleted" msprop:Generator_UserColumnName="IsCompleted" type="xs:boolean" />
+              <xs:element name="AssignedTo" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="AssignedTo" msprop:Generator_ColumnPropNameInTable="AssignedToColumn" msprop:Generator_ColumnVarNameInTable="columnAssignedTo" msprop:Generator_UserColumnName="AssignedTo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="101" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Email" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_UserColumnName="Email">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

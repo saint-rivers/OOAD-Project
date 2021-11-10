@@ -123,12 +123,19 @@ namespace OOAD_Project
         {
             //projectManagementDataSet.Tables[0].DefaultView.RowFilter = $"ProjectId = '{selectedProject}'";
             //DataTable dt = (projectManagementDataSet.Tables[0].DefaultView).ToTable() ;
-            projectManagementDataSet.Tasks.DefaultView.RowFilter = $"ProjectId = '15'";
-            tasksTableAdapter.Fill(projectManagementDataSet.Tasks);
+
+            //projectManagementDataSet.Tasks.DefaultView.RowFilter = $"ProjectId = '15'";
+
+            taskService.FetchTasksOfProject(selectedProject);
+
+
+            //tasksTableAdapter.Fill(projectManagementDataSet.Tables[0]);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'projectManagementDataSetViews.TaskView' table. You can move, or remove it, as needed.
+            this.taskViewTableAdapter.Fill(this.projectManagementDataSetViews.TaskView);
             LoadTaskTable();        
             RunLoginDialog();
         }
