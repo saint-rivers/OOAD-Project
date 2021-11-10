@@ -64,7 +64,9 @@ namespace OOAD_Project.Repositories
             return tasks;
         }
 
-        public void InsertNewTask(ProjectTask task)
+       
+
+        public void InsertNewTask(int projectId, ProjectTask task)
         {
             string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
             string _query = "INSERT INTO Tasks (ProjectId, AssignedTo, Title, Description, Deadline, TimeCreated, IsCompleted) " +
@@ -76,7 +78,7 @@ namespace OOAD_Project.Repositories
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
                     comm.CommandText = _query;
-                    comm.Parameters.AddWithValue("@pid", task.id);
+                    comm.Parameters.AddWithValue("@pid", projectId);
                     comm.Parameters.AddWithValue("@assignedto", task.assignedToId);
                     comm.Parameters.AddWithValue("@title", task.title);
                     comm.Parameters.AddWithValue("@description", task.description);

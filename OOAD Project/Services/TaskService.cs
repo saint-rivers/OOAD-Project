@@ -14,9 +14,9 @@ namespace OOAD_Project.Services
             
         }
 
-        public void InsertNewTask(ProjectTask task)
+        public void InsertNewTask(int projectId, ProjectTask task)
         {
-            taskRepository.InsertNewTask(task);
+            taskRepository.InsertNewTask(projectId, task);
         }
 
         public List<ProjectTask> FetchTasksOfProject(int projectId)

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Windows.Forms;
-using OOAD_Project.Models;
+﻿using OOAD_Project.Models;
 using OOAD_Project.Services;
 using OOAD_Project.Views;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace OOAD_Project
 {
@@ -53,13 +50,14 @@ namespace OOAD_Project
 
                 projectTitleComboBox.Items.Clear();
 
-                if (projects.Count > 0) {
+                if (projects.Count > 0)
+                {
                     selectedProject = projects[0].id;
                     Member[] _members = memberService.GetMembersInProjectAsArray(selectedProject);
                     memberMap = new MemberMap(_members);
                     membersListBox.Items.AddRange(memberMap.GetMembersAsNameArray());
 
-                   
+
                     LoadProjectsToForm(loginForm.projects);
                     ChangeActiveProject();
                 }
@@ -100,7 +98,7 @@ namespace OOAD_Project
         {
             TaskForm form = new TaskForm(projectIdTextBox.Text, taskService, memberService);
             form.ShowDialog();
-            LoadTaskTable(); 
+            loadTable();
 
         }
 
@@ -119,25 +117,10 @@ namespace OOAD_Project
             }
         }
 
-        private void LoadTaskTable()
-        {
-            //projectManagementDataSet.Tables[0].DefaultView.RowFilter = $"ProjectId = '{selectedProject}'";
-            //DataTable dt = (projectManagementDataSet.Tables[0].DefaultView).ToTable() ;
-
-            //projectManagementDataSet.Tasks.DefaultView.RowFilter = $"ProjectId = '15'";
-
-            taskService.FetchTasksOfProject(selectedProject);
-
-
-            //tasksTableAdapter.Fill(projectManagementDataSet.Tables[0]);
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'projectManagementDataSetViews.TaskView' table. You can move, or remove it, as needed.
-            this.taskViewTableAdapter.Fill(this.projectManagementDataSetViews.TaskView);
-            LoadTaskTable();        
             RunLoginDialog();
+            loadTable();
         }
 
         private void addMemberBtn_Click(object sender, EventArgs e)
@@ -189,6 +172,21 @@ namespace OOAD_Project
         private void projectTitleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ChangeActiveProject();
+            loadTable();
+            try
+            {
+                loadTable();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void loadTable()
+        {
+            viewTasksOfProjectTableAdapter.Fill(projectManagementDataSetFunctions.ViewTasksOfProject, projectIdTextBox.Text);
+
         }
 
         private void removeMember_Click(object sender, EventArgs e)
@@ -223,11 +221,13 @@ namespace OOAD_Project
                     projects = projectService.GetProjectsOfUser(currentUser.id);
                     LoadProjectsToForm(projects);
                 }
+                ReloadMembers();
             }
             else if (dialogResult == DialogResult.No)
             {
                 return;
             }
         }
+
     }
 }

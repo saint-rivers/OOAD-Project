@@ -77,7 +77,7 @@ namespace OOAD_Project
                 projectId, titleTextBox.Text, descriptionRichTextBox.Text, _assignedTo, deadlineDateTimePicker.Value
                 );
 
-            taskService.InsertNewTask(task);
+            taskService.InsertNewTask(projectId, task);
             MessageBox.Show("Added new task.");
             Close();
         }

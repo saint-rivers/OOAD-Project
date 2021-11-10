@@ -1,17 +1,12 @@
 ﻿using OOAD_Project.Models;
-using OOAD_Project.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOAD_Project.Services
 {
     public class ProjectService : BaseService
     {
         public ProjectService() : base()
-        {         
+        {
         }
 
         public List<Project> GetProjectsOfUser(int user_id)
@@ -35,7 +30,10 @@ namespace OOAD_Project.Services
             List<string> results = new List<string>();
             foreach (Project project in projects)
             {
-                results.Add(project.title);
+                if (!results.Contains(project.title))
+                {
+                    results.Add(project.title);
+                }
             }
             return results.ToArray();
         }
@@ -45,7 +43,10 @@ namespace OOAD_Project.Services
             Dictionary<string, int> projectNameId = new Dictionary<string, int>();
             foreach (Project project in projects)
             {
-                projectNameId.Add(project.title, project.id);
+                if (!projectNameId.ContainsKey(project.title))
+                {
+                    projectNameId.Add(project.title, project.id);
+                }
             }
             return projectNameId;
         }
