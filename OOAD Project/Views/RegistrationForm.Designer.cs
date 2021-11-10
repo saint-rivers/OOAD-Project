@@ -58,7 +58,7 @@ namespace OOAD_Project
             // firstnameLabel
             // 
             firstnameLabel.AutoSize = true;
-            firstnameLabel.Location = new System.Drawing.Point(45, 29);
+            firstnameLabel.Location = new System.Drawing.Point(45, 32);
             firstnameLabel.Name = "firstnameLabel";
             firstnameLabel.Size = new System.Drawing.Size(55, 13);
             firstnameLabel.TabIndex = 1;
@@ -67,7 +67,7 @@ namespace OOAD_Project
             // lastnameLabel
             // 
             lastnameLabel.AutoSize = true;
-            lastnameLabel.Location = new System.Drawing.Point(44, 55);
+            lastnameLabel.Location = new System.Drawing.Point(44, 73);
             lastnameLabel.Name = "lastnameLabel";
             lastnameLabel.Size = new System.Drawing.Size(56, 13);
             lastnameLabel.TabIndex = 3;
@@ -76,7 +76,7 @@ namespace OOAD_Project
             // emailLabel
             // 
             emailLabel.AutoSize = true;
-            emailLabel.Location = new System.Drawing.Point(44, 81);
+            emailLabel.Location = new System.Drawing.Point(44, 117);
             emailLabel.Name = "emailLabel";
             emailLabel.Size = new System.Drawing.Size(35, 13);
             emailLabel.TabIndex = 5;
@@ -85,7 +85,7 @@ namespace OOAD_Project
             // userSecretLabel
             // 
             userSecretLabel.AutoSize = true;
-            userSecretLabel.Location = new System.Drawing.Point(45, 107);
+            userSecretLabel.Location = new System.Drawing.Point(45, 160);
             userSecretLabel.Name = "userSecretLabel";
             userSecretLabel.Size = new System.Drawing.Size(56, 13);
             userSecretLabel.TabIndex = 7;
@@ -94,7 +94,7 @@ namespace OOAD_Project
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(45, 133);
+            label1.Location = new System.Drawing.Point(45, 201);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(94, 13);
             label1.TabIndex = 10;
@@ -126,7 +126,7 @@ namespace OOAD_Project
             // firstnameTextBox
             // 
             this.firstnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "Firstname", true));
-            this.firstnameTextBox.Location = new System.Drawing.Point(148, 26);
+            this.firstnameTextBox.Location = new System.Drawing.Point(148, 29);
             this.firstnameTextBox.Name = "firstnameTextBox";
             this.firstnameTextBox.Size = new System.Drawing.Size(207, 20);
             this.firstnameTextBox.TabIndex = 2;
@@ -135,7 +135,7 @@ namespace OOAD_Project
             // lastnameTextBox
             // 
             this.lastnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "Lastname", true));
-            this.lastnameTextBox.Location = new System.Drawing.Point(148, 52);
+            this.lastnameTextBox.Location = new System.Drawing.Point(148, 70);
             this.lastnameTextBox.Name = "lastnameTextBox";
             this.lastnameTextBox.Size = new System.Drawing.Size(207, 20);
             this.lastnameTextBox.TabIndex = 4;
@@ -143,7 +143,7 @@ namespace OOAD_Project
             // emailTextBox
             // 
             this.emailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "Email", true));
-            this.emailTextBox.Location = new System.Drawing.Point(148, 78);
+            this.emailTextBox.Location = new System.Drawing.Point(148, 114);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(207, 20);
             this.emailTextBox.TabIndex = 6;
@@ -151,21 +151,23 @@ namespace OOAD_Project
             // userSecretTextBox
             // 
             this.userSecretTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectUsersBindingSource, "UserSecret", true));
-            this.userSecretTextBox.Location = new System.Drawing.Point(148, 104);
+            this.userSecretTextBox.Location = new System.Drawing.Point(148, 157);
             this.userSecretTextBox.Name = "userSecretTextBox";
+            this.userSecretTextBox.PasswordChar = '*';
             this.userSecretTextBox.Size = new System.Drawing.Size(207, 20);
             this.userSecretTextBox.TabIndex = 8;
             // 
             // secretConfirmationTextBox
             // 
-            this.secretConfirmationTextBox.Location = new System.Drawing.Point(148, 130);
+            this.secretConfirmationTextBox.Location = new System.Drawing.Point(148, 198);
             this.secretConfirmationTextBox.Name = "secretConfirmationTextBox";
+            this.secretConfirmationTextBox.PasswordChar = '*';
             this.secretConfirmationTextBox.Size = new System.Drawing.Size(207, 20);
             this.secretConfirmationTextBox.TabIndex = 9;
             // 
             // registerBtn
             // 
-            this.registerBtn.Location = new System.Drawing.Point(47, 183);
+            this.registerBtn.Location = new System.Drawing.Point(47, 248);
             this.registerBtn.Name = "registerBtn";
             this.registerBtn.Size = new System.Drawing.Size(308, 41);
             this.registerBtn.TabIndex = 11;
@@ -175,7 +177,7 @@ namespace OOAD_Project
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(47, 241);
+            this.cancelBtn.Location = new System.Drawing.Point(47, 306);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(308, 41);
             this.cancelBtn.TabIndex = 12;
@@ -187,7 +189,7 @@ namespace OOAD_Project
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 310);
+            this.ClientSize = new System.Drawing.Size(405, 375);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.registerBtn);
             this.Controls.Add(label1);

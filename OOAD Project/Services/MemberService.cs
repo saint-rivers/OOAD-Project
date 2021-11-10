@@ -37,8 +37,6 @@ namespace OOAD_Project.Services
 
         public bool ValidateLogin(string email, string secret)
         {
-            email = "joy@gmail.com";
-            secret = "asd";
             return memberRepository.ValidateLogin(email, secret);
         }
 

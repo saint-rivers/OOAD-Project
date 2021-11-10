@@ -35,6 +35,11 @@ namespace OOAD_Project
             LoginForm loginForm = new LoginForm(projectService, memberService);
             loginForm.ShowDialog();
 
+            if (!loginForm.isValidLogin)
+            {
+                Close();
+            }
+
             if (loginForm.DialogResult == DialogResult.OK)
             {
                 // get data from login form
@@ -155,6 +160,8 @@ namespace OOAD_Project
 
         private void logoutBtn_Click(object sender, EventArgs e)
         {
+            projectTitleComboBox.Items.Clear();
+            membersListBox.Items.Clear();
             RunLoginDialog();
         }
 

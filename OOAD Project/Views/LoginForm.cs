@@ -17,7 +17,7 @@ namespace OOAD_Project
 {
     public partial class LoginForm : PForm
     {
-        bool isValidLogin = false;
+        public bool isValidLogin = false;
         public List<Project> projects = new List<Project>();
         public Member currentUser;
 
@@ -80,6 +80,11 @@ namespace OOAD_Project
         private void LoginForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             currentUser = memberService.GetCurrentUser();
+        }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
         }
     }
 }

@@ -39,7 +39,7 @@ namespace OOAD_Project
             // 
             // emailLoginTextBox
             // 
-            this.emailLoginTextBox.Location = new System.Drawing.Point(127, 23);
+            this.emailLoginTextBox.Location = new System.Drawing.Point(127, 39);
             this.emailLoginTextBox.Name = "emailLoginTextBox";
             this.emailLoginTextBox.Size = new System.Drawing.Size(185, 20);
             this.emailLoginTextBox.TabIndex = 0;
@@ -48,7 +48,7 @@ namespace OOAD_Project
             // emailLabel
             // 
             this.emailLabel.AutoSize = true;
-            this.emailLabel.Location = new System.Drawing.Point(34, 29);
+            this.emailLabel.Location = new System.Drawing.Point(34, 45);
             this.emailLabel.Name = "emailLabel";
             this.emailLabel.Size = new System.Drawing.Size(32, 13);
             this.emailLabel.TabIndex = 4;
@@ -57,7 +57,7 @@ namespace OOAD_Project
             // userSecretTextBox
             // 
             this.userSecretTextBox.AutoSize = true;
-            this.userSecretTextBox.Location = new System.Drawing.Point(34, 79);
+            this.userSecretTextBox.Location = new System.Drawing.Point(34, 88);
             this.userSecretTextBox.Name = "userSecretTextBox";
             this.userSecretTextBox.Size = new System.Drawing.Size(53, 13);
             this.userSecretTextBox.TabIndex = 5;
@@ -65,8 +65,9 @@ namespace OOAD_Project
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(127, 73);
+            this.passwordTextBox.Location = new System.Drawing.Point(127, 82);
             this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(185, 20);
             this.passwordTextBox.TabIndex = 1;
             this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passwordTextBox_KeyDown);
@@ -104,6 +105,7 @@ namespace OOAD_Project
             this.Controls.Add(this.emailLoginTextBox);
             this.Name = "LoginForm";
             this.Text = "Login";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
