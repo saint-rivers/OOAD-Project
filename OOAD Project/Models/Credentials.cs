@@ -19,6 +19,14 @@ namespace OOAD_Project.Models
             this.secret = secret;
         }
 
+        public Credentials(string firstname, string lastname, string email, string secret)
+        {
+            this.firstname = firstname;
+            this.lastname = lastname;
+            this.email = email;
+            this.secret = secret;
+        }
+
         public int id { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }

@@ -9,21 +9,17 @@ namespace OOAD_Project.Services
 {
     public class TaskService : BaseService
     {
-        public TaskService() : base()
-        {
-            
-        }
+        public TaskService() : base() { }
 
         public void InsertNewTask(int projectId, ProjectTask task)
         {
-            taskRepository.InsertNewTask(projectId, task);
+            task.projectId = projectId;
+            taskRepository.Save(task);
         }
 
         public List<ProjectTask> FetchTasksOfProject(int projectId)
         {
             return taskRepository.FetchTasksOfProject(projectId);
         }
-
-
     }
 }
