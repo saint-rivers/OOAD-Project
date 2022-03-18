@@ -6,14 +6,10 @@ using System.Data.SqlClient;
 
 namespace OOAD_Project.Repositories
 {
-    public class TaskRepository : BaseRepository<ProjectTask>
+    public class TaskRepository : BaseRepository
     {
-        public TaskRepository() : base() {}
-
-        public override bool Delete(int id)
+        public TaskRepository() : base()
         {
-            throw new NotImplementedException();
-        }
 
         public List<ProjectTask> FetchTasksOfProject(int projectId)
         {
