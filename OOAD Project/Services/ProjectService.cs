@@ -11,18 +11,19 @@ namespace OOAD_Project.Services
 
         public List<Project> GetProjectsOfUser(int user_id)
         {
-            return projectRepository.GetProjectsOfUser(user_id);
+            return new List<Project>(projectRepository.GetAllByUserId(user_id));
         }
 
         public int CreateProjectAndAddUsersToProject(Project project, int ownerId)
         {
-            int _projectId = projectRepository.InsertProject(ownerId, project);
+            project.ownerId = ownerId;
+            Project p = projectRepository.Save(project);
 
-            if (_projectId != -1)
+            if (p.id != -1)
             {
-                memberRepository.InsertProjectMember(_projectId, ownerId);
+                memberRepository.InsertProjectMember(p.id, ownerId);
             }
-            return _projectId;
+            return p.id;
         }
 
         public string[] MapProjectListToStringArray(List<Project> projects)
@@ -53,7 +54,7 @@ namespace OOAD_Project.Services
 
         public bool DeleteProject(int projectId)
         {
-            return projectRepository.DeleteProject(projectId);
+            return projectRepository.Delete(projectId);
         }
     }
 }

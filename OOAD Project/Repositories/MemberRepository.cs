@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace OOAD_Project.Repositories
 {
-    public class MemberRepository : BaseRepository
+    public class MemberRepository : BaseRepository<Member>
     {
         public Member currentUser = new Member();
 
@@ -19,8 +19,6 @@ namespace OOAD_Project.Repositories
             if (currentUser != null) return currentUser;
             throw new NullReferenceException("Unable to fetch user.");
         }
-
-        //
 
         public bool UpdateMemberCredentials(int memberId, Credentials newInfo)
         {
@@ -56,7 +54,6 @@ namespace OOAD_Project.Repositories
             }
             return true;
         }
-
 
         public bool InsertProjectMember(int projectId, int memberId)
         {
@@ -300,6 +297,227 @@ namespace OOAD_Project.Repositories
             }
             if (rows == 1) return true;
             return false;
+        }
+
+        private Member GetByEmail(string email)
+        {
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"SELECT Id,Firstname,Lastname,Email FROM ProjectUsers WHERE Email = @email";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    comm.Parameters.AddWithValue("@email", email);
+                    int result = comm.ExecuteNonQuery();
+
+                    // result gives the -1 output.. but on insert its 1
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Member member = new Member();
+                                member.id = reader.GetInt32(0);
+                                member.firstname = reader.GetString(1);
+                                member.lastname = reader.GetString(2);
+                                member.email = reader.GetString(3);
+
+                                return member;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No data found.");
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public override Member GetById(int id)
+        {
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"SELECT Id,Firstname,Lastname,Email FROM ProjectUsers WHERE Id = @id";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    comm.Parameters.AddWithValue("@id", id);
+                    int result = comm.ExecuteNonQuery();
+
+                    // result gives the -1 output.. but on insert its 1
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Member member = new Member();
+                                member.id = reader.GetInt32(0);
+                                member.firstname = reader.GetString(1);
+                                member.lastname = reader.GetString(2);
+                                member.email = reader.GetString(3);
+
+                                return member;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No data found.");
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public override Member[] GetAll()
+        {
+            List<Member> _memberList = new List<Member>();
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"SELECT Id,Firstname,Lastname,Email FROM ProjectUsers";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    int result = comm.ExecuteNonQuery();
+
+                    // result gives the -1 output.. but on insert its 1
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Member member = new Member();
+                                member.id = reader.GetInt32(0);
+                                member.firstname = reader.GetString(1);
+                                member.lastname = reader.GetString(2);
+                                member.email = reader.GetString(3);
+
+                                _memberList.Add(member);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No data found.");
+                        }
+                    }
+                }
+            }
+            return _memberList.ToArray();
+        }
+
+        public override Member[] GetAllById(int id)
+        {
+            List<Member> _memberList = new List<Member>();
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"SELECT Id,Firstname,Lastname,Email FROM [dbo].[view_members_in_group](@project_id)";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    conn.Open();
+                    comm.Parameters.AddWithValue("@project_id", id);
+                    int result = comm.ExecuteNonQuery();
+
+                    // result gives the -1 output.. but on insert its 1
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Member member = new Member();
+                                member.id = reader.GetInt32(0);
+                                member.firstname = reader.GetString(1);
+                                member.lastname = reader.GetString(2);
+                                member.email = reader.GetString(3);
+
+                                _memberList.Add(member);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No data found.");
+                        }
+                    }
+                }
+            }
+            return _memberList.ToArray();
+        }
+
+        public Member Save(Credentials t)
+        {
+            //todo: if id exists, update, else insert
+
+            string _connStr = GetConnectionString();
+            string _query = "INSERT INTO ProjectUsers (Firstname,Lastname,Email,UserSecret) values (@first,@last,@email,@secret)";
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = _query;
+                    comm.Parameters.AddWithValue("@first", t.firstname);
+                    comm.Parameters.AddWithValue("@last", t.lastname);
+                    comm.Parameters.AddWithValue("@email", t.email);
+                    comm.Parameters.AddWithValue("@secret", t.secret);
+                    try
+                    {
+                        conn.Open();
+                        comm.ExecuteNonQuery(); 
+                        MessageBox.Show("Registration Completed.");
+                    }
+                    catch (SqlException ex)
+                    {
+                        // other codes here
+                        // do something with the exception
+                        // don't swallow it.
+                        Console.WriteLine(ex);
+                    }
+                }
+            }
+            return GetByEmail(t.email);
+        }
+
+        public override bool Delete(int id)
+        {
+            string _connStr = Properties.Settings.Default.ProjectManagementConnectionString;
+            string _query = @"DELETE FROM ProjectUsers WHERE Id=@user_id";
+
+            using (SqlConnection conn = new SqlConnection(_connStr))
+            {
+                using (SqlCommand comm = new SqlCommand(_query, conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        comm.Parameters.AddWithValue("@user_id", id);
+                        comm.ExecuteNonQuery();
+                        return true;
+                    } catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            return false;
+        }
+
+        public override Member Save(Member t)
+        {
+            throw new NotImplementedException();
         }
     }
 }

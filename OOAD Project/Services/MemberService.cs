@@ -10,9 +10,11 @@ namespace OOAD_Project.Services
 {
     public class MemberService : BaseService
     {
-        public MemberService() : base()
-        {
+        public MemberService() : base() {}
 
+        public void RegisterNewMember(Credentials credentials)
+        {
+            memberRepository.Save(credentials);
         }
 
         public bool AddNewProjectMember(int projectId, int memberId)
